@@ -62,4 +62,4 @@ if [[ $FLAG_INTERACTIVE == 1 ]]; then
     service smbd restart
 fi
 
-env -u FLAG_INTERACTIVE
+unset FLAG_INTERACTIVE

@@ -21,4 +21,4 @@ if [[ $FLAG_INTERACTIVE == 1 ]]; then
     whenContinue
 fi
 
-env -u FLAG_INTERACTIVE
+unset FLAG_INTERACTIVE

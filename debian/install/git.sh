@@ -17,7 +17,7 @@ su $SUDO_USER -c "git config --global push.default simple"
 
 
 if [[ $INTERACTIVE == 0 ]]; then
-    FLAG_INTERACTIVE=1
+    FLAG_INTERACTIVE=0
 else
     FLAG_INTERACTIVE=$(yesNo  "Do you wish to set the Git user details?")
 fi
@@ -33,4 +33,4 @@ if [[ $FLAG_INTERACTIVE == 1 ]]; then
     fi
 fi
 
-env -u FLAG_INTERACTIVE
+unset FLAG_INTERACTIVE

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $INTERACTIVE == 0 ]]; then
-    FLAG_INTERACTIVE=1
+    FLAG_INTERACTIVE=0
 else
     FLAG_INTERACTIVE=$(yesNo  "Do you wish to update applcations and upgrade Ubuntu?")
 fi
@@ -37,4 +37,4 @@ if [[ $FLAG_INTERACTIVE == 1 ]]; then
     apt-get install -f -qq;
 fi
 
-env -u FLAG_INTERACTIVE
+unset FLAG_INTERACTIVE

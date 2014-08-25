@@ -4,7 +4,7 @@
 echo "Clean up"
 
 if [[ $INTERACTIVE == 0 ]]; then
-    FLAG_INTERACTIVE=1
+    FLAG_INTERACTIVE=0
 else
     FLAG_INTERACTIVE=$(yesNo "Do you wish to run apt clean up? [y/n]")
 fi
@@ -16,4 +16,4 @@ if [[ $FLAG_INTERACTIVE == 1 ]]; then
     rm -r /var/cache/*/*
 fi
 
-env -u FLAG_INTERACTIVE
+unset FLAG_INTERACTIVE
