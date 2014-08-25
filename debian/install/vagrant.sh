@@ -12,4 +12,8 @@ wget "https://dl.bintray.com/mitchellh/vagrant/$VAGRANT_FILENAME" -O vagrant.deb
 dpkg -i vagrant.deb
 rm -f vagrant.deb
 
+# Set ownership to the default user
+VAGRANT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
+chown -R $VAGRANT_USER ~/.vagrant.d/
+
 vagrant plugin install vagrant-vbguest

@@ -10,74 +10,42 @@ if  [ -f /etc/samba/smb.conf ]; then
 fi
 
 if [[ $INTERACTIVE == 0 ]]; then
-    FLAG_SMB_SERVER=0
+    FLAG_INTERACTIVE=0
 else
-    FLAG_SMB_SERVER=$(yesNo  "Do you wish to MANUALLY install PhpStorm?")
+    FLAG_INTERACTIVE=$(yesNo  "Do you wish to configure the samba server?")
 fi
 
-if [[ $FLAG_SMB_SERVER == 1 ]]; then
-    read -p "Set samba username: " SMB_USER
+if [[ $FLAG_INTERACTIVE == 1 ]]; then
+    SMB_USER=$(getInput "Set samba username: ")
+    # Add samba user
     smbpasswd -a $SMB_USER
+    # Enable samba user
     smbpasswd -e $SMB_USER
 
     # Ask to add a shared folder
-    SMB_QUESTION="Do you wish add a shared folder? [y/n]"
-    while true; do
-        read -p "$SMB_QUESTION" yn
-        case $yn in
-            [Yy]* )
-            read -p "Shared folder name: " SMB_NAME
-            read -p "Path to shared folder: " SMB_PATH
+    while [[ $(yesNo "Do you wish add a shared folder? ") == 1 ]]; do
+        SMB_NAME=$(getInput "Shared folder name: ")
+        SMB_PATH=$(getInput "Path to shared folder: ")
 
-            while true; do
-                read -p "Is it browseable? [y/n] (Default: y)" SMB_BROWSEABLE
-                case $SMB_BROWSEABLE in
-                    "" )
-                        SMB_BROWSEABLE="yes"
-                        break;;
-                    [y]* )
-                        SMB_BROWSEABLE="yes"
-                        break;;
-                    [n]* )
-                        SMB_BROWSEABLE="no"
-                       break;;
-                    * ) echo "Please answer yes or no.";;
-                esac
-            done
+        if [[ $(yesNo "Is it browseable? ") == 1 ]]; then
+            SMB_BROWSEABLE="yes"
+        else
+            SMB_BROWSEABLE="no"
+        fi
 
-            while true; do
-                read -p "Is it read only? [y/n] (Default: n)" SMB_READ_ONLY
-                case $SMB_READ_ONLY in
-                    "" )
-                        SMB_READ_ONLY="no"
-                        break;;
-                    [y]* )
-                        SMB_READ_ONLY="yes"
-                        break;;
-                    [n]* )
-                        SMB_READ_ONLY="no"
-                       break;;
-                    * ) echo "Please answer yes or no.";;
-                esac
-            done
+        if [[ $(yesNo "Is it read only? ") == 1 ]]; then
+            SMB_READ_ONLY="yes"
+        else
+            SMB_READ_ONLY="no"
+        fi
 
-            while true; do
-                read -p "Is it writable? [y/n] (Default: y)" SMB_WRITABLE
-                case $SMB_WRITABLE in
-                    "" )
-                        SMB_WRITABLE="yes"
-                        break;;
-                    [y]* )
-                        SMB_WRITABLE="yes"
-                        break;;
-                    [n]* )
-                        SMB_WRITABLE="no"
-                       break;;
-                    * ) echo "Please answer yes or no.";;
-                esac
-            done
+        if [[ $(yesNo "Is it writable? ") == 1 ]]; then
+            SMB_WRITABLE="yes"
+        else
+            SMB_WRITABLE="no"
+        fi
 
-            SMB_SHARE="
+        SMB_SHARE="
 
     [$SMB_NAME] \n
         comment = $SMB_NAME folder \n
@@ -86,16 +54,12 @@ if [[ $FLAG_SMB_SERVER == 1 ]]; then
         read only = $SMB_READ_ONLY \n
         writeable= $SMB_WRITABLE \n
     "
-            echo -e $SMB_SHARE >> /etc/samba/smb.conf
-            echo "Shared folder $SMB_NAME to $SMB_PATH added successfully."
-            echo -e "Attention: '$SMB_USER' must have writable access to $SMB_PATH /n"
-    
-            SMB_QUESTION="Do you wish add another shared folder? [y/n]"
-            ;;
-            [Nn]* ) exit;;
-            * ) echo "Please answer yes or no.";;
-        esac
+        echo -e $SMB_SHARE >> /etc/samba/smb.conf
+        echo "Shared folder $SMB_NAME to $SMB_PATH added successfully."
+        echo -e "Attention: '$SMB_USER' must have writable access to $SMB_PATH /n"
     done
+
+    service smbd restart
 fi
 
-service smbd restart
+env -u FLAG_INTERACTIVE

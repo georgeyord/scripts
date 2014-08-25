@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if [[ $INTERACTIVE == 0 ]]; then
-    FLAG_DISTRO=1
+    FLAG_INTERACTIVE=1
 else
-    FLAG_DISTRO=$(yesNo  "Do you wish to update applcations and upgrade Ubuntu?")
+    FLAG_INTERACTIVE=$(yesNo  "Do you wish to update applcations and upgrade Ubuntu?")
 fi
 
-if [[ $FLAG_DISTRO == 1 ]]; then
+if [[ $FLAG_INTERACTIVE == 1 ]]; then
     # Update/upgrade distro
     echo "Update/upgrade apps and distro"
 
@@ -36,3 +36,5 @@ if [[ $FLAG_DISTRO == 1 ]]; then
     apt-get -y -qq upgrade
     apt-get install -f -qq;
 fi
+
+env -u FLAG_INTERACTIVE

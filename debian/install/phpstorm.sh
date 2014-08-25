@@ -5,12 +5,12 @@ echo "Install PhpStorm"
 echo "MANUAL INSTALLATION REQUIRED"
 
 if [[ $INTERACTIVE == 0 ]]; then
-    FLAG_STORM=0
+    FLAG_INTERACTIVE=0
 else
-    FLAG_STORM=$(yesNo  "Do you wish to MANUALLY install PhpStorm?")
+    FLAG_INTERACTIVE=$(yesNo  "Do you wish to MANUALLY install PhpStorm?")
 fi
 
-if [[ $FLAG_STORM == 1 ]]; then
+if [[ $FLAG_INTERACTIVE == 1 ]]; then
     echo "Downlaod the installation package from http://www.jetbrains.com/phpstorm/download/"
     echo "Extract and run from command line: bin/phpStorm.sh"
     whenDone
@@ -20,3 +20,5 @@ if [[ $FLAG_STORM == 1 ]]; then
 
     whenContinue
 fi
+
+env -u FLAG_INTERACTIVE

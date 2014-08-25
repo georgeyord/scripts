@@ -25,13 +25,18 @@ function echoArguments {
 
 function getInput() {
     if [ -z "${1}" ]; then
-        FN_QUESTION=$1
-    else
         FN_QUESTION="Set value:"
+    else
+        FN_QUESTION=$1
     fi
 
-    read -p "$FN_QUESTION [y/n]" FN_ANSWER
-    echo $FN_ANSWER
+    while true; do
+        read -p "$FN_QUESTION" FN_ANSWER
+        if [[ -n $FN_ANSWER ]]; then
+            echo $FN_ANSWER
+            break;
+        fi
+    done
 }
 
 function getNonOptionArguments {

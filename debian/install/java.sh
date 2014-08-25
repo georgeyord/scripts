@@ -7,13 +7,26 @@ function addRepo() {
     fi
 }
 
-# Install basic tools
-echo "Install basic tools"
+# Install Java
+echo "Install Java"
 apt-get install --assume-yes --force-yes -qq \
     python-software-properties
 
-add-apt-repository -y ppa:webupd8team/java
-apt-get update -qq
+if [[ $INTERACTIVE == 0 ]]; then
+    FLAG_INTERACTIVE=0
+else
+    FLAG_INTERACTIVE=$(yesNo  "Do you wish to install Oracle Java?")
+fi
 
-apt-get install --assume-yes --force-yes -qq \
-    oracle-java8-installer
+if [[ $FLAG_INTERACTIVE == 1 ]]; then
+    echo "Install Oracle Java"
+    add-apt-repository -y ppa:webupd8team/java
+    apt-get update -qq
+
+    apt-get install --assume-yes --force-yes -qq \
+        oracle-java8-installer
+else
+    echo "Install Open JDK Java"
+    apt-get install --assume-yes --force-yes -qq \
+        openjdk-7-jre
+fi
