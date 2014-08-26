@@ -19,15 +19,15 @@ groupadd docker
 # this to take effect.
 gpasswd -a $DEFAULT_USER docker
 
-# Set ownership to the default user
-chown -R  $DEFAULT_USER ~/.dockercfg
-
 # Restart the Docker daemon.
 service docker restart
 
 if [[ $INTERACTIVE == 1 ]] && [[ $(yesNo  "Do you wish to setup Docker access to hub?") == 1 ]]; then
     # This will generate a ~/.dockercfg file
-    docker login
+    su $DEFAULT_USER -c "docker login"
+
+    # Set ownership to the default user
+    chown -R  $DEFAULT_USER /home/$DEFAULT_USER/.dockercfg
 fi
 
 unset FLAG_INTERACTIVE

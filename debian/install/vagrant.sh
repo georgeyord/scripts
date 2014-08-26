@@ -13,6 +13,6 @@ dpkg -i vagrant.deb
 rm -f vagrant.deb
 
 # Set ownership to the default user
-chown -R $DEFAULT_USER ~/.vagrant.d/
+chown -R $DEFAULT_USER /home/$DEFAULT_USER/.vagrant.d/
 
 vagrant plugin install vagrant-vbguest
