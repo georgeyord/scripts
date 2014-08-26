@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# This is the original Vagrantfile include in the packaged box so it 's here just for reference
+
+Vagrant.configure(2) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "ubuntu/trusty64"
+
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # VirtualBox:
+  config.vm.provider :virtualbox do |vb|
+  	# Use VBoxManage to customize the VM:
+	vb.customize ["modifyvm", :id, "--memory", "1024"]
+	vb.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
+  end
+
+  # Upgrate Ubuntu, install docker and other basic tools and cleanup
+  config.vm.provision "shell", path: "https://raw.githubusercontent.com/georgeyord/scripts/master/provision/dev-basics-git-docker.sh"
+
+end
