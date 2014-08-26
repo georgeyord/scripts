@@ -1,7 +1,3 @@
-scripts
-=======
-
-Scripts and files for various occasions
 # Vagrant for Docker
 
 Vagrant box based on ubuntu 14.04 LTS with [Docker](https://www.docker.com/) (docker.io package) and basic tools including:
@@ -17,8 +13,8 @@ Vagrant box based on ubuntu 14.04 LTS with [Docker](https://www.docker.com/) (do
 
 ## The box in numbers
 
- * Basic image filesize: <800mb stored in S3
- * Provision script: [here](https://raw.githubusercontent.com/georgeyord/scripts/master/provision/dev-basics-git-docker.sh)
+ * Basic image filesize: about 800mb stored in S3
+ * [Provision script](https://raw.githubusercontent.com/georgeyord/scripts/master/vagrant/docker/provision.sh)
 
 ## Vagrant tips
 
@@ -38,4 +34,10 @@ If you are new to Docker lets start with the definition:
 > Docker lets you quickly assemble applications from components and eliminates the friction that can come when shipping code.
 > Docker lets you get your code tested and deployed into production as fast as possible.
 
-And then go to the [UserGuide](https://docs.docker.com/userguide/).
+Now, lets run a very primitive container to verify everything worked fine:
+
+> docker run -i -t ubuntu /bin/bash
+
+If you got a bash command line then the experiment was successful. Hit `exit` to close the container.
+
+You can go to the docker's [UserGuide](https://docs.docker.com/userguide/) and become an expert!
