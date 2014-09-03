@@ -1,0 +1,5 @@
+webhelper:
+  image: dockerfile/nodejs-bower-grunt:latest
+  volumes:
+#   - [codebase]:/data
+   - /opt/codebase/angular-boilerplate:/data
