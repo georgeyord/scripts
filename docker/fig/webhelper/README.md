@@ -1,4 +1,4 @@
-Helper Docker container using [Fig](http://www.fig.sh)
+Helper for web applications built in a Docker container using [Fig](http://www.fig.sh)
 =====================================================
 
 ## Includes
@@ -13,3 +13,7 @@ Helper Docker container using [Fig](http://www.fig.sh)
  * `fig run webhelper bower install` to run bower install
  * `fig run webhelper grunt build` to run grunt build
  * ...etc
+
+## Notices
+ * grunt will not succeed running Browser tests
+ * Live reload needs somw tweaking to work
