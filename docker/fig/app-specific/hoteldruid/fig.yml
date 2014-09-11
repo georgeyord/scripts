@@ -6,12 +6,13 @@ hoteldruid:
    # Used if you have an nginx proxypass server
    - VIRTUAL_HOST=hoteldruid.local
   volumes:
-   - data:/data
+   - data/hoteldruid:/data
    - log/nginx:/var/log/nginx
   links:
    - mysql
 mysql:
   image: mysql:latest
+  # not needed if you dont need access from host
   ports:
    - 3360:3306
   environment:

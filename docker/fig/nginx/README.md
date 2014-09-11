@@ -1,6 +1,10 @@
 Nginx server in Docker container using [Fig](http://www.fig.sh)
 =====================================================
 
+## Quick Start
+ * Run `fig up -d`
+ * Check the webapp is running in localhost
+
 ## Features
  * Path to codebase is set to `./data` folder and can be changed in `fig.yml`
  * Nginx port isset by default to `80` and can be changed in `fig.yml`
