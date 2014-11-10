@@ -12,6 +12,7 @@ su $DEFAULT_USER -c "git config --global core.editor 'vim'"
 su $DEFAULT_USER -c "git config --global alias.co checkout"
 su $DEFAULT_USER -c "git config --global alias.st status"
 su $DEFAULT_USER -c "git config --global alias.br branch"
+su $DEFAULT_USER -c "git config --global alias.pr pull --rebase"
 su $DEFAULT_USER -c "git config --global core.autocrlf input"
 su $DEFAULT_USER -c "git config --global push.default simple"
 
