@@ -30,7 +30,7 @@ if [[ $FLAG_INTERACTIVE == 1 ]]; then
     fi
     if [[ $(getInput "Set Git username? ") == 1 ]]; then
         SMB_USER=$(getInput "Git username: ")
-        su $DEFAULT_USER -c "git config --global user.email $SMB_USER"
+        su $DEFAULT_USER -c "git config --global user.name $SMB_USER"
     fi
 fi
 
