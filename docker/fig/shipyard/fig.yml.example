@@ -5,7 +5,7 @@ agent:
    - 8845:8845
   volumes:
    - /var/run/docker.sock:/tmp/docker.sock
-  envoronments:
+  environments:
   # Get your IP from `ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{print $1;}'`
   # or use the default docker IP
    - IP=172.17.42.1
