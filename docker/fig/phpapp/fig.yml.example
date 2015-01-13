@@ -1,10 +1,10 @@
 phpapp:
   image: paintedfox/nginx-php5:latest
-  ports:
-   - 80:80
+  #ports:
+  # - 8001:80
   environment:
   # Used if you have an nginx proxypass server
-   - VIRTUAL_HOST=phpapp.local
+   - VIRTUAL_HOST=phpapp.mydocker.co
   volumes:
    - data:/data
    - log/nginx:/var/log/nginx

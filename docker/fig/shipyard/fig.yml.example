@@ -1,23 +1,19 @@
-agent:
-  image: shipyard/agent:latest
-  command: setup
+#shipyard controller
+shipyard:
+  image: shipyard/shipyard:latest
   ports:
-   - 8845:8845
+   - 8080:8080
   volumes:
-   - /var/run/docker.sock:/tmp/docker.sock
-  environments:
-  # Get your IP from `ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{print $1;}'`
-  # or use the default docker IP
-   - IP=172.17.42.1
-   - URL=http://172.17.42.1:8800
-  # Set and uncomment after you have enabled the host through WebUI
-#   - KEY=[key]
+   - /var/run/docker.sock:/docker.sock
   links:
-   - manager
-manager:
-  image: shipyard/deploy:latest
-  command: setup
-  ports:
-   - 8800:8800
+   - rethinkdb
+rethinkdb:
+  image: shipyard/rethinkdb:latest
   volumes:
-   - /var/run/docker.sock:/tmp/docker.sock
+   - data:/data
+#cli:
+#  image: shipyard/shipyard-cli:latest
+#  command: bash
+
+
+
