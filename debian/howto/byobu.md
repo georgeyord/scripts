@@ -12,5 +12,5 @@
 |Ctrl + F6      |Close window       |
 |Shift + F2     |New hrz window     |
 |Alt + F2       |New vrt window     |
-|Shift + F3     |Previous hrz window|
-|Shift + F4     |Next hrz window    |
+|Shift + F3     |Previous hrz/vrt window|
+|Shift + F4     |Next hrzvrt window    |
