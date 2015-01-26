@@ -5,4 +5,4 @@ echo "Install Byobu"
 apt-get install --assume-yes --force-yes -qq \
 	byobu
 
-byobu-activate
+byobu-enable
