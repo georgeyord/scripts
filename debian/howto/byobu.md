@@ -6,7 +6,9 @@
 |F3             |Previous window    |
 |F4             |Next window        |
 |F6             |Detach and logout  |
-|F7             |Rename window      |
+|F8             |Rename window      |
+|F7             |Enter scroll mode  |
+|Ctrl + C       |Exit scroll mode   |
 |Ctrl + F6      |Close window       |
 |Shift + F2     |New hrz window     |
 |Alt + F2       |New vrt window     |
