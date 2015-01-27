@@ -10,7 +10,9 @@
 |F7             |Enter scroll mode  |
 |Ctrl + C       |Exit scroll mode   |
 |Ctrl + F6      |Close window       |
-|Shift + F2     |New hrz window     |
-|Alt + F2       |New vrt window     |
-|Shift + F3     |Previous hrz/vrt window|
-|Shift + F4     |Next hrzvrt window    |
+|Shift + F2     |New hrz pane       |
+|Alt + F2       |New vrt pane       |
+|Shift + F3     |Previous pane      |
+|Shift + F4     |Next pane          |
+|Ctrl + Arrows  |Resize pane        |
+|Shift + F11    |Full screen        |

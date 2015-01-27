@@ -27,7 +27,7 @@ if [[ $INTERACTIVE == 1 ]] && [[ $(yesNo  "Do you wish to setup Docker access to
     su $DEFAULT_USER -c "docker login"
 
     # Set ownership to the default user
-    chown -R  $DEFAULT_USER /home/$DEFAULT_USER/.dockercfg
+    chown -R  $DEFAULT_USER $DEFAULT_USER_PATH/.dockercfg
 fi
 
 # Install Fig script

@@ -194,6 +194,7 @@ fi
 # Find the default user (uid 1000) to use it when a folder needs
 # its permissions fixed.
 DEFAULT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
+DEFAULT_USER_PATH=$(awk -v val=1000 -F ":" '$3==val{print $6}' /etc/passwd)
 
 read -a SCRIPTS <<< "duration-start $(getNonOptionArguments $@) duration-stop"
 SCRIPTS_COUNT=${#SCRIPTS[@]}

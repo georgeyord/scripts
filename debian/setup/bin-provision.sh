@@ -6,10 +6,10 @@ DEFAULT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
 
 echo "Add provision script in bin folder and set the correct permissions"
 
-mkdir -p /home/$DEFAULT_USER/bin
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/provision/provision.sh > /home/$DEFAULT_USER/bin/provision.sh
-chmod a+x /home/$DEFAULT_USER/bin/provision.sh
+mkdir -p $DEFAULT_USER_PATH/bin
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/provision/provision.sh > $DEFAULT_USER_PATH/bin/provision.sh
+chmod a+x $DEFAULT_USER_PATH/bin/provision.sh
 
-sudo /home/$DEFAULT_USER/bin/provision.sh test
+sudo $DEFAULT_USER_PATH/bin/provision.sh test
 
 echo "Use '~/bin/provision.sh [scripts]' to use it"
