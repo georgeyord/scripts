@@ -6,7 +6,7 @@ echo "More details here: https://github.com/magicmonty/bash-git-prompt"
 
 git clone https://github.com/magicmonty/bash-git-prompt.git $DEFAULT_USER_PATH/.bash-git-prompt
 
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/gitprompt/byobu/.git-prompt-colors.sh > $DEFAULT_USER_PATH/.git-prompt-colors.sh
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/gitprompt/.git-prompt-colors.sh > $DEFAULT_USER_PATH/.git-prompt-colors.sh
 
 if grep -Fxq "$DEFAULT_USER_PATH/.bashrc" gitprompt; then
     echo "GitPrompt already included in bashrc"
