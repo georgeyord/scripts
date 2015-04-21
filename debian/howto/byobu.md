@@ -1,4 +1,4 @@
-# Byuobu Cheat sheet
+# Byobu Cheat sheet
 
 |Key binding    |Action             |
 |---------------|-------------------|
