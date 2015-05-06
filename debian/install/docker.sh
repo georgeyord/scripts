@@ -30,8 +30,8 @@ if [[ $INTERACTIVE == 1 ]] && [[ $(yesNo  "Do you wish to setup Docker access to
     chown -R  $DEFAULT_USER $DEFAULT_USER_PATH/.dockercfg
 fi
 
-# Install Fig script
-curl -L https://github.com/docker/fig/releases/download/0.5.2/linux > /usr/local/bin/fig
-chmod +x /usr/local/bin/fig
+# Install Docker compose
+curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
 unset FLAG_INTERACTIVE
