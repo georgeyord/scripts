@@ -7,17 +7,17 @@ apt-get install --assume-yes --force-yes -qq \
 
 su $DEFAULT_USER -c "git config --global alias.br branch"
 su $DEFAULT_USER -c "git config --global alias.co checkout"
-su $DEFAULT_USER -c "git config --global alias.ct=commit -m"
-# Displays commit graph is a nice colored view for all branches including stashes
-su $DEFAULT_USER -c "git config --global alias.lab=log --graph --all --pretty=format:'%Cred%h%Creset -%C(blue)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+su $DEFAULT_USER -c "git config --global alias.ct commit -m"
 # Displays commit graph is a nice colored view for just the current branch
-su $DEFAULT_USER -c "git config --global alias.lb='log --graph --pretty=format:'%Cred%h%Creset -%C(green)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+su $DEFAULT_USER -c "git config --global alias.lb \"log --graph --pretty=format:'%Cred%h%Creset -%C(green)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative\""
+# Displays commit graph is a nice colored view for all branches including stashes
+su $DEFAULT_USER -c "git config --global alias.lba \"log --graph --all --pretty=format:'%Cred%h%Creset -%C(blue)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative\""
 # Displays each commit as 1 line. It is mainly used to see commits in one shot.
-su $DEFAULT_USER -c "git config --global alias.lc=log --stat --pretty=oneline"
+su $DEFAULT_USER -c "git config --global alias.lc \"log --stat --pretty=oneline\""
 # Displays each commit with full details one after another in a list view
-su $DEFAULT_USER -c "git config --global alias.lf=log --format=fuller"
-su $DEFAULT_USER -c "git config --global alias.lol=log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short"
-su $DEFAULT_USER -c "git config --global alias.ls=!clear;git log --pretty=oneline --abbrev-commit --graph --decorate -40"
+su $DEFAULT_USER -c "git config --global alias.la \"log --format=fuller\""
+# List of commits in oneline with date, description and user
+su $DEFAULT_USER -c "git config --global alias.ls \"log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short\""
 su $DEFAULT_USER -c "git config --global alias.pr 'pull --rebase'"
 su $DEFAULT_USER -c "git config --global alias.st status"
 su $DEFAULT_USER -c "git config --global core.editor 'vim'"
