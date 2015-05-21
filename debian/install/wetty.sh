@@ -13,10 +13,10 @@ fi
 
 if [[ $FLAG_INTERACTIVE == 1 ]]; then
     openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 30000 -nodes
-    WETTY_START_COMMAND="node app.js --sslkey /opt/wetty/key.pem --sslcert /opt/wetty/cert.pem -p 2233"
+    WETTY_START_COMMAND="node /opt/wetty/app.js --sslkey /opt/wetty/key.pem --sslcert /opt/wetty/cert.pem -p 2233"
     WETTY_URL="https://localhost:2233"
 else
-    WETTY_START_COMMAND="node app.js -p 2233"
+    WETTY_START_COMMAND="node /opt/wetty/app.js -p 2233"
     WETTY_URL="http://localhost:2233"
 fi
 
