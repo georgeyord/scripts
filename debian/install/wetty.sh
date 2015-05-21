@@ -14,16 +14,18 @@ fi
 if [[ $FLAG_INTERACTIVE == 1 ]]; then
     openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 30000 -nodes
     WETTY_START_COMMAND="node app.js --sslkey /opt/wetty/key.pem --sslcert /opt/wetty/cert.pem -p 2233"
-    WETTY_URL="http://localhost:2233"
+    WETTY_URL="https://localhost:2233"
 else
     WETTY_START_COMMAND="node app.js -p 2233"
-    WETTY_URL="https://localhost:2233"
+    WETTY_URL="http://localhost:2233"
 fi
 
 npm install
 
-echo "$WETTY_START_COMMAND" > /usr/local/bin/wetty
+echo "#!/bin/bash" > /usr/local/bin/wetty
+echo "$WETTY_START_COMMAND" >> /usr/local/bin/wetty
 chmod +x /usr/local/bin/wetty
+
 echo "Access wetty Web TTY through: '$WETTY_URL'"
 
 unset FLAG_INTERACTIVE
