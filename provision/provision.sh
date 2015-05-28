@@ -6,6 +6,16 @@ echo "Provision script started"
 # HELPER FUNCTIONS
 #######################################
 
+
+# Check wether the specified app exists
+#
+# Example: $EXISTS=$(appExists [APP])
+#
+# return 0|1
+function appExists() {
+    which $1 > /dev/null && echo 1 || echo 2
+}
+
 function addRepo() {
     if ! grep -q "$1" /etc/apt/sources.list; then
         echo "Adding new apt source '$2'"
@@ -165,15 +175,6 @@ function yesNo() {
     done
 
     echo $FN_ANSWER
-}
-
-# Check wether the specified app exists
-#
-# Example: $EXISTS=$(appExists [APP])
-#
-# return 0|1
-function appExists() {
-    which $1 > /dev/null && echo 1 || echo 2
 }
 
 #######################################

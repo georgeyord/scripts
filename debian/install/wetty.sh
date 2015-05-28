@@ -8,7 +8,7 @@ if [[ $EXISTS == 0 ]]; then
     if [[ $INTERACTIVE == 0 ]]; then
         echo "***** WETTY FAILED: Npm is required for Wetty installation, please add 'nodejs' to provision.sh script before wetty."
     else
-        whenContinue "Npm is required for Wetty installation, please add 'nodejs' to provision.sh script before wetty."
+        whenContinue "***** WETTY FAILED: Npm is required for Wetty installation, please add 'nodejs' to provision.sh script before wetty."
     fi
 else
     git clone https://github.com/krishnasrinivas/wetty /opt/wetty
