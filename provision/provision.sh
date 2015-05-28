@@ -167,6 +167,15 @@ function yesNo() {
     echo $FN_ANSWER
 }
 
+# Check wether the specified app exists
+#
+# Example: $EXISTS=$(appExists [APP])
+#
+# return 0|1
+function appExists() {
+    which $1 > /dev/null && echo 1 || echo 2
+}
+
 #######################################
 # DEFINE WHAT TO RUN
 #######################################
