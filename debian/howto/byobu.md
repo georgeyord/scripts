@@ -7,8 +7,8 @@
 |F4             |Next window        |
 |F6             |Detach and logout  |
 |F8             |Rename window      |
-|F7             |Enter scroll mode  |
-|Ctrl + C       |Exit scroll mode   |
+|F7 or Alt+pgup or Alt+pgdn|Enter scroll mode  |
+|Ctrl + C or q  |Exit scroll mode   |
 |**Ctrl + F6**  |Close window       |
 |Shift + F2     |New hrz pane       |
 |Alt + F2       |New vrt pane       |
@@ -17,3 +17,6 @@
 |Ctrl + Arrows  |Resize pane        |
 |Shift + F11    |Full screen        |
 |Shift + F7     |Printscreen        |
+|Shift-F12      |Toggle all keybindings on/off|
+|Ctrl-a k       |Kill the current window|
+|Ctrl-a [0-9]   |Go to window|
