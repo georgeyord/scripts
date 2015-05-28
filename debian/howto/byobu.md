@@ -14,6 +14,7 @@
 |Alt + F2       |New vrt pane       |
 |Shift + F3     |Previous pane      |
 |Shift + F4     |Next pane          |
+|Ctrl + a twice |Toggle between last used windows|
 |Ctrl + Arrows  |Resize pane        |
 |Shift + F11    |Full screen        |
 |Shift + F7     |Printscreen        |
