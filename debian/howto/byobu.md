@@ -7,14 +7,14 @@
 |F3             |Previous window    |
 |F4             |Next window        |
 |F6             |Detach and logout  |
-|F7 or Alt-pgup or Alt-pgdn|Enter scroll mode  |
+|F7 or Alt-pgup or Alt-pgdn|Enter scroll mode|
 |Ctrl-c or q    |Exit scroll mode   |
 |**Ctrl-F6**    |Close window       |
 |Shift-F2       |New hrz pane       |
 |Alt-F2         |New vrt pane       |
 |Shift-F3       |Previous pane      |
 |Shift-F4       |Next pane          |
-|Ctrl-Arrows    |Resize pane        |
+|Ctrl-Shift-Arrows|Resize pane      |
 
 ## Advanced usage
 |Key binding    |Action             |
