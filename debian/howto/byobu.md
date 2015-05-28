@@ -1,6 +1,5 @@
 # Byobu Cheat sheet
-
-## Basic usage
+**Basic usage**
 |Key binding    |Action             |
 |---------------|-------------------|
 |F2             |New window         |
@@ -16,7 +15,7 @@
 |Shift-F4       |Next pane          |
 |Ctrl-Shift-Arrows|Resize pane      |
 
-## Advanced usage
+**Advanced usage**
 |Key binding    |Action             |
 |---------------|-------------------|
 |F8             |Rename window      |
@@ -34,7 +33,7 @@
 |Ctrl-a k       |Kill the current window|
 |Ctrl-a [0-9]   |Go to window       |
 
-## Funny usage!
+**Funny usage!**
 |Key binding    |Action             |
 |---------------|-------------------|
 |Ctrl-Shift-F5  |Change status bar color|
