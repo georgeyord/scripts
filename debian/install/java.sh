@@ -1,13 +1,6 @@
 #!/bin/bash
-
-function addRepo() {
-    if ! grep -q "$1" /etc/apt/sources.list; then
-        echo "Adding new apt source '$2'"
-        echo $2 >> /etc/apt/sources.list
-    fi
-}
-
 # Install Java
+
 echo "Install Java"
 apt-get install --assume-yes --force-yes -qq \
     python-software-properties

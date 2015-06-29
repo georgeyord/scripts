@@ -3,7 +3,7 @@
 if [[ $INTERACTIVE == 0 ]]; then
     FLAG_INTERACTIVE=0
 else
-    FLAG_INTERACTIVE=$(yesNo  "Do you wish to update applcations and upgrade Ubuntu?")
+    FLAG_INTERACTIVE=$(yesNo  "Do you wish to update applications and upgrade Ubuntu?")
 fi
 
 if [[ $FLAG_INTERACTIVE == 1 ]]; then
@@ -17,7 +17,7 @@ if [[ $FLAG_INTERACTIVE == 1 ]]; then
     # Disable the apt cache - We don't need it in a container and it would make the image bigger
     echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 
-    FLAG_ADD_REPOS=$(yesNo  "Do you wish to add multiverse/multiverse repos (highly recommended for development related applications)?")
+    FLAG_ADD_REPOS=$(yesNo  "Do you wish to add multiverse repos (highly recommended for development related applications)?")
     if [[ $FLAG_ADD_REPOS == 1 ]]; then
         FLAG_INTERACTIVE=0
         addRepo '^deb http://archive.ubuntu.com/ubuntu\(.*\)main' "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main"

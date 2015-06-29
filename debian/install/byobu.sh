@@ -20,6 +20,9 @@ apt-get install --assume-yes --force-yes -qq \
 mkdir -p $DEFAULT_USER_PATH/.byobu
 wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/byobu/.tmux.conf > $DEFAULT_USER_PATH/.byobu/.tmux.conf
 
+# Set ownership to the default user
+chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.byobu
+
 byobu-enable
 
 unset FLAG_INTERACTIVE
