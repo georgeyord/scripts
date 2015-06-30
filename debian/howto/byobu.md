@@ -1,22 +1,23 @@
 # Byobu Cheat sheet
+**Basic usage**
 
-## Basic usage
 |Key binding    |Action             |
 |---------------|-------------------|
 |F2             |New window         |
 |F3             |Previous window    |
 |F4             |Next window        |
 |F6             |Detach and logout  |
-|F7 or Alt-pgup or Alt-pgdn|Enter scroll mode  |
+|F7 or Alt-pgup or Alt-pgdn|Enter scroll mode|
 |Ctrl-c or q    |Exit scroll mode   |
 |**Ctrl-F6**    |Close window       |
 |Shift-F2       |New hrz pane       |
 |Alt-F2         |New vrt pane       |
 |Shift-F3       |Previous pane      |
 |Shift-F4       |Next pane          |
-|Ctrl-Arrows    |Resize pane        |
+|Ctrl-Shift-Arrows|Resize pane      |
 
-## Advanced usage
+**Advanced usage**
+
 |Key binding    |Action             |
 |---------------|-------------------|
 |F8             |Rename window      |
@@ -34,7 +35,8 @@
 |Ctrl-a k       |Kill the current window|
 |Ctrl-a [0-9]   |Go to window       |
 
-## Funny usage!
+**Funny usage!**
+
 |Key binding    |Action             |
 |---------------|-------------------|
 |Ctrl-Shift-F5  |Change status bar color|
