@@ -1,9 +1,16 @@
-exec xrandr --output VGA-0 --off --output LVDS-0 --off --output HDMI-0 --off --output DP-3 --off --output DP-2 --off --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --mode 1920x1080 --pos 1920x0 --rotate normal
+#exec xrandr --output VGA-0 --off --output LVDS-0 --off --output HDMI-0 --off --output DP-3 --off --output DP-2 --off --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --mode 1920x1080 --pos 1920x0 --rotate normal
 
-workspace 1 output DP-1
-workspace 2 output DP-0
-workspace 3 output DP-1
-workspace 4 output DP-0
+set $wp1 "1: term"
+set $wp2 "2: browse"
+set $wp3 "3: code"
+set $wp4 "4: com"
+set $wp5 "5: docker"
+workspace $wp1 output DP-0
+workspace $wp2 output DP-1
+workspace $wp3 output DP-0
+workspace $wp4 output DP-1
+workspace $wp5 output DP-1
+workspace 6 output DP-1
 
 #
 # Should you change your keyboard layout some time, delete
@@ -35,11 +42,53 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec i3-dmenu-desktop
-bindsym $mod+Shift+d exec dmenu_run
+# Focus mode, one app per key.
+mode "focus" {
+    bindsym b [class="(?i)browser"] focus ; mode "default"
+    bindsym s [class="(?i)sublime"] focus ; mode "default"
+    bindsym p [class="(?i)phpstorm"] focus ; mode "default"
+    bindsym i [class="(?i)jetbrains\\-idea"] focus ; mode "default"
+    bindsym m [class="(?i)mysql\\-workbench\\-bin"] focus ; mode "default"
+    bindsym c [class="(?i)skype"] focus ; mode "default"
+    bindsym t [class="(?i)terminal"] focus ; mode "default"
+
+    bindsym Return modet "default
+    bindsym Escape mode "default"
+}
+bindsym $mod+Tab mode "focus"
+
+# Super launch mode, one app per key.
+mode "super-launch" {
+    bindsym b exec sensible-browser ; mode "default"
+    bindsym f exec firefox ; mode "default"
+    bindsym g exec google-chrome ; mode "default"
+    bindsym i exec idea ; mode "default"
+    bindsym p exec phpstorm ; mode "default"
+    bindsym s exec subl ; mode "default"
+    bindsym t exec gnome-terminal --working-directory=/opt/codebase/ ; mode "default"
+
+    bindsym Return mode "default
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+Tab mode "super-launch"
+
+# Start dmenu (a program launcher) with mode
+mode "launcher" {
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+d exec i3-dmenu-desktop, mode "launcher"
+
+mode "advanced-launcher" {
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+Shift+d exec dmenu_run, mode "advanced-launcher"
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -69,6 +118,10 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# move focused workspace
+bindsym $mod+Shift+i move workspace to output left
+bindsym $mod+Shift+o move workspace to output right
+
 # split in horizontal orientation
 bindsym $mod+h split h
 
@@ -96,11 +149,11 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
+bindsym $mod+1 workspace $wp1
+bindsym $mod+2 workspace $wp2
+bindsym $mod+3 workspace $wp3
+bindsym $mod+4 workspace $wp4
+bindsym $mod+5 workspace $wp5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
@@ -109,15 +162,15 @@ bindsym $mod+0 workspace 10
 
 # move focused container to workspace
 # Terminals
-bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+1 move container to workspace $wp1
 # Broswer
-bindsym $mod+Shift+2 move container to workspace 2
-# Communicate
-bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+2 move container to workspace $wp2
 # Code
-bindsym $mod+Shift+4 move container to workspace 4
-
-bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+3 move container to workspace $wp3
+# Communicate
+bindsym $mod+Shift+4 move container to workspace $wp4
+# Docker
+bindsym $mod+Shift+5 move container to workspace $wp5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
@@ -129,7 +182,8 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -157,25 +211,54 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-## YORD
+# Enable/disable caps mode
+mode "caps" {
+        bindsym Caps_Lock mode "default"
+}
+bindsym Caps_Lock mode "caps"
 
+bindsym $mod+x floating enable
+bindsym $mod+Shift+x floating disable
 bindsym $mod+F3 exec i3-msg "workspace 2; exec sensible-browser"
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 -- +10%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -- -10%
+bindsym XF86AudioMute exec pactl set-sink-mute 1 -- toggle
 
-assign class="^browser$" 2
-assign class="X-www-browser" 2
-assign class="skype" 3
-assign class="zoiper" 3
-assign class="phpstorm" 4
-assign class="jetbrains-idea" 4
+exec numlockx on
 
-exec --no-startup-id i3-msg "workspace 1; exec i3-sensible-terminal"
-exec --no-startup-id i3-msg "workspace 1; exec i3-sensible-terminal"
-exec --no-startup-id i3-msg "workspace 2; exec sensible-browser"
-exec --no-startup-id i3-msg "workspace 3; exec skype"
-exec --no-startup-id i3-msg "workspace 3; exec zoiper"
-exec --no-startup-id i3-msg "workspace fir; exec subl"
+exec --no-startup-id i3-msg 'workspace $wp1; append_layout /home/user/.i3/workspaces/term_and_sublime.json'
+exec --no-startup-id i3-msg 'workspace $wp2; append_layout /home/user/.i3/workspaces/browser.json'
+exec --no-startup-id i3-msg 'workspace $wp3; append_layout /home/user/.i3/workspaces/code.json'
+exec --no-startup-id i3-msg 'workspace $wp4; append_layout /home/user/.i3/workspaces/com.json'
+exec --no-startup-id i3-msg 'workspace $wp5; append_layout /home/user/.i3/workspaces/docker.json'
+
+assign [class="browser"] $wp2
+assign [class="X\\-www\\-browser"] $wp2
+assign [class="phpstorm"] $wp3
+assign [class="jetbrains\\-idea"] $wp3
+assign [class="mysql\\-workbench\\-bin"] $wp3
+assign [class="(?i)skype"] $wp4
+assign [class="(?i)zoiper"] $wp4
+assign [class="(?i)linphone"] $wp4
+
+for_window [class="(?i)zoiper"] floating disable
+
+exec --no-startup-id i3-msg 'workspace $wp1; exec gnome-terminal -t term'
+exec --no-startup-id i3-msg 'workspace $wp1; exec gnome-terminal -t term'
+exec --no-startup-id i3-msg 'workspace $wp1; exec gnome-terminal -t term'
+exec --no-startup-id i3-msg 'workspace $wp1; exec subl'
+exec --no-startup-id i3-msg 'workspace $wp2; exec sensible-browser'
+exec --no-startup-id i3-msg 'workspace $wp4; exec linphone'
+exec --no-startup-id i3-msg 'workspace $wp4; exec skype'
+
+set $docker_path /opt/codebase/tripsta/docker/compose/
+set $docker_tp_path /opt/codebase/dockerfiles/compose/
+exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
+exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_path -t dck'
+exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_path -t dck'
+exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_path -t dck'
+exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
+exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
 
 ## END YORD
 
@@ -185,11 +268,4 @@ bar {
 	# Using custom i3status.conf
 	#status_command i3status
 	status_command sudo i3status -c ~/.i3/i3status.conf
-
-
-        # Type             border  background font
-        #focused_workspace  #008fff #007fff #ffffff
-        #active_workspace   #333333 #5f676a #ffffff
-        #inactive_workspace #333333 #222222 #888888
-        #urgent_workspace   #aa0000 #990000 #ffffff
 }
