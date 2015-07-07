@@ -33,6 +33,13 @@ function echoArguments {
     done
 }
 
+function ensureRoot {
+    if [[ ! "root" == `whoami` ]]; then
+        echo "Please run command as root, example: sudo `basename $0` $*"
+        exit 1;
+    fi
+}
+
 function getInput() {
     if [ -z "${1}" ]; then
         FN_QUESTION="Set value: "
@@ -180,6 +187,8 @@ function yesNo() {
 #######################################
 # DEFINE WHAT TO RUN
 #######################################
+
+ensureRoot $@
 
 REMOTE=$(getOptionWithValue remote 0 $@)
 LOCAL=$(getOptionWithValue local 0 $@)

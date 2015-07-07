@@ -15,7 +15,8 @@ apt-get update -y -qq
 apt-get install --assume-yes --force-yes -qq \
 	i3-wm i3status i3lock \
 	suckless-tools \
-	apcalc
+	apcalc \
+	numlockx
 
 mkdir -p $DEFAULT_USER_PATH/.i3
 

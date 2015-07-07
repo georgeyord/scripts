@@ -11,7 +11,8 @@ if [[ $EXISTS == 0 ]]; then
         whenContinue "***** WETTY FAILED: Npm is required for Wetty installation, please add 'nodejs' to provision.sh script before wetty."
     fi
 else
-    git clone https://github.com/krishnasrinivas/wetty /opt/wetty
+    WETTY_PATH=/opt/wetty
+    git clone https://github.com/krishnasrinivas/wetty $WETTY_PATH
     cd /opt/wetty
 
     if [[ $INTERACTIVE == 0 ]]; then
@@ -22,10 +23,10 @@ else
 
     if [[ $FLAG_INTERACTIVE == 1 ]]; then
         openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 30000 -nodes
-        WETTY_START_COMMAND="node app.js --sslkey /opt/wetty/key.pem --sslcert /opt/wetty/cert.pem -p 2233"
+        WETTY_START_COMMAND="node $WETTY_PATH/app.js --sslkey /opt/wetty/key.pem --sslcert /opt/wetty/cert.pem -p 2233"
         WETTY_URL="https://localhost:2233"
     else
-        WETTY_START_COMMAND="node app.js -p 2233"
+        WETTY_START_COMMAND="node $WETTY_PATH/app.js -p 2233"
         WETTY_URL="http://localhost:2233"
     fi
 

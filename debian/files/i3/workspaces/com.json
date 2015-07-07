@@ -60,6 +60,18 @@
                 }
               ],
               "type": "con"
+            },
+            {
+              "border": "normal",
+              "floating": "auto_off",
+              "name": "Zoiper",
+              "percent": 0.5,
+              "swallows": [
+                {
+                  "class": "(?i)zoiper"
+                }
+              ],
+              "type": "con"
             }
           ]
         }

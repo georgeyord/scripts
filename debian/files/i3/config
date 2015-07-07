@@ -1,16 +1,14 @@
 #exec xrandr --output VGA-0 --off --output LVDS-0 --off --output HDMI-0 --off --output DP-3 --off --output DP-2 --off --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --mode 1920x1080 --pos 1920x0 --rotate normal
 
-set $wp1 "1: term"
-set $wp2 "2: browse"
-set $wp3 "3: code"
-set $wp4 "4: com"
-set $wp5 "5: docker"
-workspace $wp1 output DP-0
-workspace $wp2 output DP-1
-workspace $wp3 output DP-0
-workspace $wp4 output DP-1
-workspace $wp5 output DP-1
-workspace 6 output DP-1
+exec --no-startup-id "setxkbmap -model pc105 -layout us,gr -option grp:alt_shift_toggle"
+
+set $wp-main    "1: main"
+set $wp-code    "2: code"
+set $wp-browse  "3: browse"
+set $wp-tp      "4: tp"
+set $wp-docker  "5: docker"
+set $wp-system  "8: system"
+set $wp-com     "9: com"
 
 #
 # Should you change your keyboard layout some time, delete
@@ -52,7 +50,7 @@ mode "focus" {
     bindsym i [class="(?i)jetbrains\\-idea"] focus ; mode "default"
     bindsym m [class="(?i)mysql\\-workbench\\-bin"] focus ; mode "default"
     bindsym c [class="(?i)skype"] focus ; mode "default"
-    bindsym t [class="(?i)terminal"] focus ; mode "default"
+    bindsym t [title="^term$"] focus ; mode "default"
 
     bindsym Return modet "default
     bindsym Escape mode "default"
@@ -65,6 +63,7 @@ mode "super-launch" {
     bindsym f exec firefox ; mode "default"
     bindsym g exec google-chrome ; mode "default"
     bindsym i exec idea ; mode "default"
+    bindsym m exec mysql-workbench ; mode "default"
     bindsym p exec phpstorm ; mode "default"
     bindsym s exec subl ; mode "default"
     bindsym t exec gnome-terminal --working-directory=/opt/codebase/ ; mode "default"
@@ -88,11 +87,6 @@ mode "advanced-launcher" {
         bindsym Escape mode "default"
 }
 bindsym $mod+Shift+d exec dmenu_run, mode "advanced-launcher"
-
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -146,35 +140,35 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+#bindsym $mod+c focus child
 
 # switch to workspace
-bindsym $mod+1 workspace $wp1
-bindsym $mod+2 workspace $wp2
-bindsym $mod+3 workspace $wp3
-bindsym $mod+4 workspace $wp4
-bindsym $mod+5 workspace $wp5
+bindsym $mod+1 workspace $wp-main
+bindsym $mod+2 workspace $wp-code
+bindsym $mod+3 workspace $wp-browse
+bindsym $mod+4 workspace $wp-tp
+bindsym $mod+5 workspace $wp-docker
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+8 workspace $wp-system
+bindsym $mod+9 workspace $wp-com
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
 # Terminals
-bindsym $mod+Shift+1 move container to workspace $wp1
+bindsym $mod+Shift+1 move container to workspace $wp-main
 # Broswer
-bindsym $mod+Shift+2 move container to workspace $wp2
+bindsym $mod+Shift+2 move container to workspace $wp-browse
 # Code
-bindsym $mod+Shift+3 move container to workspace $wp3
+bindsym $mod+Shift+3 move container to workspace $wp-code
 # Communicate
-bindsym $mod+Shift+4 move container to workspace $wp4
+bindsym $mod+Shift+4 move container to workspace $wp-com
 # Docker
-bindsym $mod+Shift+5 move container to workspace $wp5
+bindsym $mod+Shift+5 move container to workspace $wp-tp
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+8 move container to workspace $wp-system
+bindsym $mod+Shift+9 move container to workspace $wp-com
 bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
@@ -211,14 +205,9 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Enable/disable caps mode
-mode "caps" {
-        bindsym Caps_Lock mode "default"
-}
-bindsym Caps_Lock mode "caps"
-
 bindsym $mod+x floating enable
 bindsym $mod+Shift+x floating disable
+bindsym $mod+Ctrl+l exec i3-lock
 bindsym $mod+F3 exec i3-msg "workspace 2; exec sensible-browser"
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 -- +10%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -- -10%
@@ -226,41 +215,70 @@ bindsym XF86AudioMute exec pactl set-sink-mute 1 -- toggle
 
 exec numlockx on
 
-exec --no-startup-id i3-msg 'workspace $wp1; append_layout /home/user/.i3/workspaces/term_and_sublime.json'
-exec --no-startup-id i3-msg 'workspace $wp2; append_layout /home/user/.i3/workspaces/browser.json'
-exec --no-startup-id i3-msg 'workspace $wp3; append_layout /home/user/.i3/workspaces/code.json'
-exec --no-startup-id i3-msg 'workspace $wp4; append_layout /home/user/.i3/workspaces/com.json'
-exec --no-startup-id i3-msg 'workspace $wp5; append_layout /home/user/.i3/workspaces/docker.json'
+### MAIN ###
+workspace $wp-main output DP-0
 
-assign [class="browser"] $wp2
-assign [class="X\\-www\\-browser"] $wp2
-assign [class="phpstorm"] $wp3
-assign [class="jetbrains\\-idea"] $wp3
-assign [class="mysql\\-workbench\\-bin"] $wp3
-assign [class="(?i)skype"] $wp4
-assign [class="(?i)zoiper"] $wp4
-assign [class="(?i)linphone"] $wp4
+exec --no-startup-id i3-msg 'workspace $wp-main; append_layout /home/user/.i3/workspaces/term_and_sublime.json'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec sudo subl'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
 
+### CODE ###
+workspace $wp-code output DP-0
+assign [class="phpstorm"] $wp-code
+assign [class="jetbrains\\-idea"] $wp-code
+assign [class="mysql\\-workbench\\-bin"] $wp-code
+
+exec --no-startup-id i3-msg 'workspace $wp-code; append_layout /home/user/.i3/workspaces/code.json'
+
+### SYSTEM ###
+workspace $wp-system output DP-0
+
+exec --no-startup-id i3-msg 'workspace $wp-system; append_layout /home/user/.i3/workspaces/system.json'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -e htop -t htop'
+
+### BROWSE ###
+workspace $wp-browse output DP-1
+assign [class="browser"] $wp-browse
+assign [class="X\\-www\\-browser"] $wp-browse
+
+exec --no-startup-id i3-msg 'workspace $wp-browse; append_layout /home/user/.i3/workspaces/browser.json'
+exec --no-startup-id i3-msg 'workspace $wp-browse; exec sensible-browser'
+
+### TP ###
+workspace $wp-tp output DP-1
+set $docker_tp_path /opt/codebase/tripsta/docker/compose/
+set $tp_path /opt/codebase/tripsta/app/
+
+exec --no-startup-id i3-msg 'workspace $wp-tp; append_layout /home/user/.i3/workspaces/tp.json'
+exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$tp_path -t tpapp'
+exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
+exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
+exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
+
+### DOCKER ###
+workspace $wp-docker output DP-1
+set $docker_path /opt/codebase/dockerfiles/compose/
+
+exec --no-startup-id i3-msg 'workspace $wp-docker; append_layout /home/user/.i3/workspaces/docker.json'
+exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
+exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
+exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
+exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
+exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
+
+### COM ###
+workspace $wp-com output DP-1
+
+assign [class="(?i)skype"] $wp-com
+assign [class="(?i)zoiper"] $wp-com
+assign [class="(?i)linphone"] $wp-com
 for_window [class="(?i)zoiper"] floating disable
 
-exec --no-startup-id i3-msg 'workspace $wp1; exec gnome-terminal -t term'
-exec --no-startup-id i3-msg 'workspace $wp1; exec gnome-terminal -t term'
-exec --no-startup-id i3-msg 'workspace $wp1; exec gnome-terminal -t term'
-exec --no-startup-id i3-msg 'workspace $wp1; exec subl'
-exec --no-startup-id i3-msg 'workspace $wp2; exec sensible-browser'
-exec --no-startup-id i3-msg 'workspace $wp4; exec linphone'
-exec --no-startup-id i3-msg 'workspace $wp4; exec skype'
-
-set $docker_path /opt/codebase/tripsta/docker/compose/
-set $docker_tp_path /opt/codebase/dockerfiles/compose/
-exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
-exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_path -t dck'
-exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_path -t dck'
-exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_path -t dck'
-exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
-exec --no-startup-id i3-msg 'workspace $wp5; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
-
-## END YORD
+exec --no-startup-id i3-msg 'workspace $wp-com; append_layout /home/user/.i3/workspaces/com.json'
+exec --no-startup-id i3-msg 'workspace $wp-com; exec zoiper'
+exec --no-startup-id i3-msg 'workspace $wp-com; exec skype'
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
