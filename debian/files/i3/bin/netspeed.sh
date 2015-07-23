@@ -4,7 +4,6 @@
 #  © 2012 Stefan Breunig
 #  stefan+measure-net-speed@mathphys.fsk.uni-heidelberg.de)
  
- 
 # path to store the old results in
 path="/dev/shm/measure-net-speed"
  

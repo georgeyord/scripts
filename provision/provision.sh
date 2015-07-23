@@ -23,6 +23,39 @@ function addRepo() {
     fi
 }
 
+function addExecutableToBin() {
+
+    if [ -z "${1}" ]; then
+        echo "Executable file was not specified, ignoring..."
+        sleep 2
+    fi
+
+    if [ -z "${2}" ]; then
+        FILENAME=$(getFilenameFromUrl ${1})
+    else
+        FILENAME=${2}
+    fi
+    
+    ln -s `realpath ${1}` $DEFAULT_BIN_PATH/$1 && chmod +x $DEFAULT_BIN_PATH/$1
+}
+
+function downloadExecutableToBin() {
+
+    if [ -z "${1}" ]; then
+        echo "Executable file was not specified, ignoring..."
+        sleep 2
+    fi
+
+    if [ -z "${2}" ]; then
+        FILENAME=$(getFilenameFromUrl ${1})
+    else
+        FILENAME=${2}
+    fi
+    
+    FILENAME=$(getFilenameFromUrl ${1})
+    wget -qO- $1 $DEFAULT_BIN_PATH/$FILENAME && chmod +x $DEFAULT_BIN_PATH/$FILENAME
+}
+
 function echoArguments {
     # Store arguments in a temp array
     FN_ARGS=("$@")
@@ -38,6 +71,11 @@ function ensureRoot {
         echo "Please run command as root, example: sudo `basename $0` $*"
         exit 1;
     fi
+}
+
+function getFilenameFromUrl {
+    PART=${1##*/}
+    echo "${PART%%\?*}"
 }
 
 function getInput() {
@@ -214,6 +252,7 @@ fi
 # its permissions fixed.
 DEFAULT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
 DEFAULT_USER_PATH=$(awk -v val=1000 -F ":" '$3==val{print $6}' /etc/passwd)
+DEFAULT_BIN_PATH=/usr/local/bin
 
 read -a SCRIPTS <<< "duration-start $(getNonOptionArguments $@) duration-stop"
 SCRIPTS_COUNT=${#SCRIPTS[@]}

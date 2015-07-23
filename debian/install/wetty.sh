@@ -33,6 +33,8 @@ else
     npm install
 
     echo "#!/bin/bash" > /usr/local/bin/wetty
+    echo "# Terminal in browser over http/https" >> /usr/local/bin/wetty
+    echo "# https://github.com/krishnasrinivas/wetty" >> /usr/local/bin/wetty
     echo "$WETTY_START_COMMAND" >> /usr/local/bin/wetty
     chmod +x /usr/local/bin/wetty
 

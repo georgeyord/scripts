@@ -42,51 +42,20 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+q kill
 
-# Focus mode, one app per key.
-mode "focus" {
-    bindsym b [class="(?i)browser"] focus ; mode "default"
-    bindsym s [class="(?i)sublime"] focus ; mode "default"
-    bindsym p [class="(?i)phpstorm"] focus ; mode "default"
-    bindsym i [class="(?i)jetbrains\\-idea"] focus ; mode "default"
-    bindsym m [class="(?i)mysql\\-workbench\\-bin"] focus ; mode "default"
-    bindsym c [class="(?i)skype"] focus ; mode "default"
-    bindsym t [title="^term$"] focus ; mode "default"
+# Rofi darcula style
+set $rofi-properties -font "mono 12" -fg "#E0E2E4" -bg "#293134"
 
-    bindsym Return modet "default
-    bindsym Escape mode "default"
-}
-bindsym $mod+Tab mode "focus"
+# Workspace mode
+bindsym $mod+Tab exec i3_switch_workspace.sh
 
-# Super launch mode, one app per key.
-mode "super-launch" {
-    bindsym b exec sensible-browser ; mode "default"
-    bindsym f exec firefox ; mode "default"
-    bindsym g exec google-chrome ; mode "default"
-    bindsym i exec idea ; mode "default"
-    bindsym m exec mysql-workbench ; mode "default"
-    bindsym p exec phpstorm ; mode "default"
-    bindsym s exec subl ; mode "default"
-    bindsym t exec gnome-terminal --working-directory=/opt/codebase/ ; mode "default"
+# Focus mode
+bindsym $mod+Shift+Tab exec rofi $rofi-properties -show window
 
-    bindsym Return mode "default
-    bindsym Escape mode "default"
-}
-bindsym $mod+Shift+Tab mode "super-launch"
+# Launcher mode
+bindsym $mod+d exec rofi $rofi-properties -show run
 
-# Start dmenu (a program launcher) with mode
-mode "launcher" {
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $mod+d exec i3-dmenu-desktop, mode "launcher"
-
-mode "advanced-launcher" {
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $mod+Shift+d exec dmenu_run, mode "advanced-launcher"
+# SSH launch mode
+bindsym $mod+Shift+d exec rofi $rofi-properties -show ssh
 
 # change focus
 bindsym $mod+j focus left
@@ -227,7 +196,9 @@ exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
 ### CODE ###
 workspace $wp-code output DP-0
 assign [class="phpstorm"] $wp-code
-assign [class="jetbrains\\-idea"] $wp-code
+#assign [class="jetbrains\\-idea"] $wp-code
+assign [class="sun\\-awt\\-X11\\-XFramePeer"] $wp-code
+
 assign [class="mysql\\-workbench\\-bin"] $wp-code
 
 exec --no-startup-id i3-msg 'workspace $wp-code; append_layout /home/user/.i3/workspaces/code.json'
