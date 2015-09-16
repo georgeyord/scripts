@@ -1,5 +1,3 @@
-#exec xrandr --output VGA-0 --off --output LVDS-0 --off --output HDMI-0 --off --output DP-3 --off --output DP-2 --off --output DP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --mode 1920x1080 --pos 1920x0 --rotate normal
-
 exec --no-startup-id "setxkbmap -model pc105 -layout us,gr -option grp:alt_shift_toggle"
 
 set $wp-main    "1: main"
@@ -174,8 +172,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym $mod+x floating enable
-bindsym $mod+Shift+x floating disable
 bindsym $mod+Ctrl+l exec i3-lock
 bindsym $mod+F3 exec i3-msg "workspace 2; exec sensible-browser"
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 -- +10%
@@ -188,7 +184,8 @@ exec numlockx on
 workspace $wp-main output DP-0
 
 exec --no-startup-id i3-msg 'workspace $wp-main; append_layout /home/user/.i3/workspaces/term_and_sublime.json'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec sudo subl'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec subl'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec atom'
 exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
 exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
 exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
@@ -196,9 +193,9 @@ exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
 ### CODE ###
 workspace $wp-code output DP-0
 assign [class="phpstorm"] $wp-code
-#assign [class="jetbrains\\-idea"] $wp-code
+assign [class="jetbrains\\-idea"] $wp-code
+assign [class="jetbrains\\-rubymine"] $wp-code
 assign [class="sun\\-awt\\-X11\\-XFramePeer"] $wp-code
-
 assign [class="mysql\\-workbench\\-bin"] $wp-code
 
 exec --no-startup-id i3-msg 'workspace $wp-code; append_layout /home/user/.i3/workspaces/code.json'
@@ -207,7 +204,9 @@ exec --no-startup-id i3-msg 'workspace $wp-code; append_layout /home/user/.i3/wo
 workspace $wp-system output DP-0
 
 exec --no-startup-id i3-msg 'workspace $wp-system; append_layout /home/user/.i3/workspaces/system.json'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -e htop -t htop'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec sudo multitail /var/log/supervisor/*.log'
+#exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -e htop -t htop'
+
 
 ### BROWSE ###
 workspace $wp-browse output DP-1
@@ -220,7 +219,7 @@ exec --no-startup-id i3-msg 'workspace $wp-browse; exec sensible-browser'
 ### TP ###
 workspace $wp-tp output DP-1
 set $docker_tp_path /opt/codebase/tripsta/docker/compose/
-set $tp_path /opt/codebase/tripsta/app/
+set $tp_path /opt/codebase/tripsta/
 
 exec --no-startup-id i3-msg 'workspace $wp-tp; append_layout /home/user/.i3/workspaces/tp.json'
 exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$tp_path -t tpapp'
@@ -249,7 +248,7 @@ for_window [class="(?i)zoiper"] floating disable
 
 exec --no-startup-id i3-msg 'workspace $wp-com; append_layout /home/user/.i3/workspaces/com.json'
 exec --no-startup-id i3-msg 'workspace $wp-com; exec zoiper'
-exec --no-startup-id i3-msg 'workspace $wp-com; exec skype'
+# exec --no-startup-id i3-msg 'workspace $wp-com; exec skype'
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

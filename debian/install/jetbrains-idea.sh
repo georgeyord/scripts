@@ -10,6 +10,9 @@ else
     FLAG_INTERACTIVE=$(yesNo  "Do you wish to MANUALLY install JetBrains Idea?")
 fi
 
+# Get some usefull scripts for i3 
+downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/bin/reset-keyboard.sh
+
 if [[ $FLAG_INTERACTIVE == 1 ]]; then
     echo "Download the installation package from http://www.jetbrains.com/idea/download/"
     echo "Extract and run from command line: bin/idea.sh"

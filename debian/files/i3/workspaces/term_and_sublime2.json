@@ -1,0 +1,136 @@
+// vim:ts=4:sw=4:et
+{
+    // splitv split container with 2 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 1,
+    "type": "con",
+    "nodes": [
+        {
+            // tabbed split container with 2 children
+            "border": "normal",
+            "floating": "auto_off",
+            "layout": "tabbed",
+            "percent": 0.7,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 608,
+                       "width": 1600,
+                       "x": 0,
+                       "y": 22
+                    },
+                    "name": "/opt/codebase/scripts/debian/files/i3/workspaces/term_and_sublime.json (codebase) - Sublime Text (UNREGISTERED)",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                       // "class": "^Sublime_text$",
+                       // "instance": "^sublime_text$",
+                       // "title": "^\\/opt\\/codebase\\/scripts\\/debian\\/files\\/i3\\/workspaces\\/term_and_sublime\\.json\\ \\(codebase\\)\\ \\-\\ Sublime\\ Text\\ \\(UNREGISTERED\\)$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 644,
+                       "width": 1916,
+                       "x": 2,
+                       "y": 18
+                    },
+                    "name": "/home/user - Atom",
+                    "percent": 0.5,
+                    "swallows": [
+                       {
+                       // "class": "^Atom$",
+                       // "instance": "^atom$",
+                       // "title": "^\\/home\\/user\\ \\-\\ Atom$",
+                       // "window_role": "^browser\\-window$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        },
+        {
+            // splith split container with 3 children
+            "border": "normal",
+            "floating": "auto_off",
+            "layout": "splith",
+            "percent": 0.3,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 248,
+                       "width": 704,
+                       "x": 0,
+                       "y": 652
+                    },
+                    "name": "term",
+                    "percent": 0.44,
+                    "swallows": [
+                       {
+                       // "class": "^Gnome\\-terminal$",
+                       // "instance": "^gnome\\-terminal$",
+                       // "title": "^term$",
+                       // "window_role": "^gnome\\-terminal\\-window\\-2812\\-1217906369\\-1441183226$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 248,
+                       "width": 448,
+                       "x": 704,
+                       "y": 652
+                    },
+                    "name": "term",
+                    "percent": 0.28,
+                    "swallows": [
+                       {
+                       // "class": "^Gnome\\-terminal$",
+                       // "instance": "^gnome\\-terminal$",
+                       // "title": "^term$",
+                       // "window_role": "^gnome\\-terminal\\-window\\-2812\\-510369145\\-1441183226$"
+                       }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "geometry": {
+                       "height": 248,
+                       "width": 448,
+                       "x": 1152,
+                       "y": 652
+                    },
+                    "name": "term",
+                    "percent": 0.28,
+                    "swallows": [
+                       {
+                       // "class": "^Gnome\\-terminal$",
+                       // "instance": "^gnome\\-terminal$",
+                       // "title": "^term$",
+                       // "window_role": "^gnome\\-terminal\\-window\\-2812\\-1408005520\\-1441183226$"
+                       }
+                    ],
+                    "type": "con"
+                }
+            ]
+        }
+    ]
+}
+

@@ -8,16 +8,38 @@
     "type": "con",
     "nodes": [
     {
-        "border": "normal",
-        "floating": "auto_off",
-        "name": "Sublime Text",
-        "percent": 0.7,
-        "swallows": [
-        {
-            "class": "^Sublime_text$"
-        }
-        ],
-        "type": "con"
+            // tabbed split container with 2 children
+            "border": "normal",
+            "floating": "auto_off",
+            "layout": "tabbed",
+            "percent": 0.7,
+            "type": "con",
+            "nodes": [
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "name": "Sublime Text",
+                    "percent": 0.5,
+                    "swallows": [
+                    {
+                        "class": "^Sublime_text$"
+                    }
+                    ],
+                    "type": "con"
+                },
+                {
+                    "border": "normal",
+                    "floating": "auto_off",
+                    "name": "Atom",
+                    "percent": 0.5,
+                    "swallows": [
+                    {
+                        "class": "^Atom$"
+                    }
+                    ],
+                    "type": "con"
+                }
+            ]
         },
         {
             // splith split container with 3 children

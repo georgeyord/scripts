@@ -11,7 +11,7 @@
             "border": "normal",
             "floating": "auto_off",
             "name": "htop",
-            "percent": 0.25,
+            "percent": 0.5,
             "swallows": [
                {
                 "class": "^Gnome\\-terminal$",
@@ -24,33 +24,7 @@
             "border": "normal",
             "floating": "auto_off",
             "name": "tpdck",
-            "percent": 0.25,
-            "swallows": [
-               {
-                "class": "^Gnome\\-terminal$",
-                "title": "^systerm$"
-               }
-            ],
-            "type": "con"
-        },
-        {
-            "border": "normal",
-            "floating": "auto_off",
-            "name": "tpdck",
-            "percent": 0.25,
-            "swallows": [
-               {
-                "class": "^Gnome\\-terminal$",
-                "title": "^systerm$"
-               }
-            ],
-            "type": "con"
-        },
-        {
-            "border": "normal",
-            "floating": "auto_off",
-            "name": "tpdck",
-            "percent": 0.25,
+            "percent": 0.5,
             "swallows": [
                {
                 "class": "^Gnome\\-terminal$",

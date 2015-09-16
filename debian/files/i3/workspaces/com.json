@@ -51,8 +51,20 @@
             {
               "border": "normal",
               "floating": "auto_off",
+              "name": "TeamViewer",
+              "percent": 0.4,
+              "swallows": [
+                {
+                  "class": "^TeamViewer.exe$",
+                }
+              ],
+              "type": "con"
+            },
+            {
+              "border": "normal",
+              "floating": "auto_off",
               "name": "File Transfers",
-              "percent": 0.5,
+              "percent": 0.3,
               "swallows": [
                 {
                   "class": "^Skype$",
@@ -65,7 +77,7 @@
               "border": "normal",
               "floating": "auto_off",
               "name": "Zoiper",
-              "percent": 0.5,
+              "percent": 0.3,
               "swallows": [
                 {
                   "class": "(?i)zoiper"
