@@ -51,9 +51,19 @@ function downloadExecutableToBin() {
     else
         FILENAME=${2}
     fi
+
+    TARGET_PATH=$DEFAULT_BIN_PATH/$FILENAME
+    if [ -f "${TARGET_PATH}" ]; then
+        echo "Deleting existing file '${TARGET_PATH}'"
+        rm -f "${TARGET_PATH}"
+    fi
+
+    echo "Downloading file from: ${1}"
+    echo "to: ${TARGET_PATH}"
+    wget -q -O "${TARGET_PATH}" $1
     
-    FILENAME=$(getFilenameFromUrl ${1})
-    wget -qO- $1 $DEFAULT_BIN_PATH/$FILENAME && chmod +x $DEFAULT_BIN_PATH/$FILENAME
+    echo "Make file '${TARGET_PATH}' executable"
+    chmod +x "${TARGET_PATH}"
 }
 
 function echoArguments {
