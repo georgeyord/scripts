@@ -29,6 +29,8 @@ su $DEFAULT_USER -c "git config --global color.status auto"
 su $DEFAULT_USER -c "git config --global core.autocrlf input"
 su $DEFAULT_USER -c "git config --global push.default current"
 
+downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/git/bin/gitpr.sh gitpr
+
 if [[ $INTERACTIVE == 0 ]]; then
     FLAG_INTERACTIVE=0
 else
