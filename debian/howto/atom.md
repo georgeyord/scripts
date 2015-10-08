@@ -1,6 +1,6 @@
 # Atom Cheat sheet
 
-** Menu usage **
+**Menu usage**
 
 |Key binding    |Action             |
 |---------------|-------------------|
@@ -13,7 +13,7 @@
 |Ctrl+k, left/right/up/down|Split pane left/right/up/down|
 |Ctrl+k, Ctrl+left/right/up/down|Move to left/right/up/down pane|
 
-** Editor usage **
+**Editor usage**
 
 |Key binding    |Action             |
 |---------------|-------------------|
