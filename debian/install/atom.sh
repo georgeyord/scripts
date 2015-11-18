@@ -2,8 +2,8 @@
 
 echo "Install Atom"
 
-wget https://atom.io/download/deb
-dpkg -i atom-amd64.deb
+wget https://atom.io/download/deb -O /tmp/atom.deb
+dpkg -i /tmp/atom.deb
 
 # Beautifier for Atom
 apm install atom-beautify
