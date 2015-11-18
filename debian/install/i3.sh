@@ -14,7 +14,7 @@
 # - suckless-tools -> dmenu:
 #     Dynamic menu for X, eg `dmenu_run` and search for app
 # 	  read more: http://tools.suckless.org/
-# 
+#
 
 echo "Install and configure i3 and additional helper apps, a tiling window manager"
 
@@ -31,13 +31,24 @@ mkdir -p $DEFAULT_USER_PATH/.i3
 wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/config > $DEFAULT_USER_PATH/.i3/config
 wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/i3status.conf > $DEFAULT_USER_PATH/.i3/i3status.conf
 
-# Get some usefull scripts for i3 
+mkdir -p $DEFAULT_USER_PATH/.i3/workspaces
+
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/browser.json > $DEFAULT_USER_PATH/.i3/workspaces/browser.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/code.json > $DEFAULT_USER_PATH/.i3/workspaces/code.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/com.json > $DEFAULT_USER_PATH/.i3/workspaces/com.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/docker.json > $DEFAULT_USER_PATH/.i3/workspaces/docker.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/system.json > $DEFAULT_USER_PATH/.i3/workspaces/system.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/term_and_sublime.json > $DEFAULT_USER_PATH/.i3/workspaces/term_and_sublime.json
+
+# Get some usefull scripts for i3
 downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/i3_switch_workspace.sh i3_switch_workspace
 downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/i3exec.sh i3exec
 downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/netspeed.sh netspeed
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-dualscreen.sh xrand-dualscreen
+downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-dp0-dp1.sh xrand-dp0-dp1
+downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-dp0.sh xrand-dp0
+downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-laptop-dp0.sh xrand-laptop-dp0
+downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-laptop-vga.sh xrand-laptop-vga
 downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-laptop.sh xrand-laptop
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-singlescreen.sh xrand-singlescreen
 
 ln -s /usr/bin/i3lock $DEFAULT_BIN_PATH/lock
 
