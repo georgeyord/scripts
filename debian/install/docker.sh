@@ -31,7 +31,7 @@ if [[ $INTERACTIVE == 1 ]] && [[ $(yesNo  "Do you wish to setup Docker access to
 fi
 
 # Install Docker compose
-wget https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` -O /usr/local/bin/docker-compose
+wget https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` -O /usr/local/bin/docker-compose && \
 chmod +x /usr/local/bin/docker-compose
 
 # Install Docker compose bash completion
