@@ -2,7 +2,6 @@
 
 # Install node.js
 echo "Install node.js"
-apt-add-repository -y ppa:chris-lea/node.js > /dev/null
 
-apt-get update -y -qq
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 apt-get install --assume-yes --force-yes -qq nodejs
