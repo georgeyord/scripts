@@ -10,29 +10,56 @@ wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/provision/
 
 ## Use `provision` to install a list of services:
 ```
-sudo provision --interactive distro-upgrade basic-tools git chrome byobu ccze docker dropbox gitprompt guake i3 meld nodejs sublime atom samba-server ssh-client ssh-server wetty java skype apt-cleanup disk-space
-
+sudo provision --interactive \
+     distro-upgrade \
+     basic-tools \
+     git \
+     nodejs \
+     python-pip \
+     chrome \
+     dropbox \
+     docker \
+     sublime \
+     atom \
+     ssh-client \
+     ssh-server \
+     gitprompt \
+     i3 \
+     byobu \
+     ccze \
+     bats \
+     wetty \
+     guake \
+     meld \
+     java \
+     vlc \
+     skype \
+     apt-cleanup \
+     disk-space
 ```
 
 this will install:
  * basic-tools like vim htop python wget etc.
  * git
- * google chrome stable
- * byobu
- * ccze
- * docker
- * dropbox
- * gitpromt
- * guake
- * i3
- * meld
  * node/npm
+ * python-pip
+ * google chrome stable
+ * dropbox
+ * docker
  * sublime
  * atom
  * ssh-client
  * ssh-server
+ * gitpromt
+ * i3
+ * byobu
+ * ccze
+ * bats
  * wetty
+ * guake
+ * meld
  * java
+ * vlc
  * skype
  * do an apt cleanup (remove unneeded install packages)
  * show the disk space used
