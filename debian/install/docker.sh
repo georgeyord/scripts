@@ -9,7 +9,7 @@ if [ ! -e /usr/lib/apt/methods/https ]; then
 	apt-get install --assume-yes --force-yes -qq apt-transport-https
 fi
 
-curl -s https://get.docker.io/ubuntu/ | sh
+curl -s https://get.docker.io/ | sh
 
 # Add the docker group if it doesn't already exist.
 groupadd docker
@@ -31,7 +31,7 @@ if [[ $INTERACTIVE == 1 ]] && [[ $(yesNo  "Do you wish to setup Docker access to
 fi
 
 # Install Docker compose
-curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+wget https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` -O /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # Install Docker compose bash completion
