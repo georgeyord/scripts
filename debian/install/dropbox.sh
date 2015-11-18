@@ -16,4 +16,5 @@ addRepo '^deb http://linux.dropbox.com/ubuntu/\(.*\)main' "deb http://linux.drop
 apt-get -y -qq update
 apt-get install --assume-yes --force-yes -qq dropbox 
 
-
+# Set ownership to the default user
+12	chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.dropbox*
