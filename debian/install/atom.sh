@@ -8,7 +8,7 @@ apt-get install --assume-yes --force-yes -qq \
 		atom
 
 # Beautifier for Atom
-apm install atom-beautifier
+apm install atom-beautify
 # Bundled with Atom
 # apm install autocomplete-plus
 # Bundled with Atom
@@ -23,8 +23,6 @@ apm install elasticsearch-client
 apm install extract-web
 # An adaptable UI with your favorite syntax theme at it's core!
 apm install nucleus-dark-ui
-# View a rendered version of the Markdown
-apm install markdown-preview
 # Format JSON
 apm install pretty-json
 # Easy access and switching between projects
