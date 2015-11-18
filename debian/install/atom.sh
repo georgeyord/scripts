@@ -1,11 +1,9 @@
 #!/bin/bash
 
 echo "Install Atom"
-add-apt-repository -y ppa:webupd8team/atom
-apt-get update -qq
 
-apt-get install --assume-yes --force-yes -qq \
-		atom
+wget https://atom.io/download/deb
+dpkg -i atom-amd64.deb
 
 # Beautifier for Atom
 apm install atom-beautify
