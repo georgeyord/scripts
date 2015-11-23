@@ -3,13 +3,18 @@
 # Install docker.io
 echo "Install docker.io"
 
+DOCKER_COMPOSE_VERSION=1.5.1
+KUBECTL_VERSION=1.1.1
+
 # Check that HTTPS transport is available to APT
 if [ ! -e /usr/lib/apt/methods/https ]; then
 	apt-get update -y -qq
 	apt-get install --assume-yes --force-yes -qq apt-transport-https
 fi
 
-curl -s https://get.docker.io/ | sh
+curl -s https://get.docker.io/ubuntu/ | sh
+
+apt-get install --assume-yes --force-yes -qq docker-engine
 
 # Add the docker group if it doesn't already exist.
 groupadd docker
@@ -31,10 +36,14 @@ if [[ $INTERACTIVE == 1 ]] && [[ $(yesNo  "Do you wish to setup Docker access to
 fi
 
 # Install Docker compose
-wget https://github.com/docker/compose/releases/download/1.5.1/docker-compose-`uname -s`-`uname -m` -O /usr/local/bin/docker-compose && \
+curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # Install Docker compose bash completion
 curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose --version | awk 'NR==1{print $NF}')/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
+
+# Install Kubernetes's kubectl
+curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl > /usr/local/bin/kubectl && \
+chmod +x /usr/local/bin/kubectl
 
 unset FLAG_INTERACTIVE

@@ -31,3 +31,29 @@
 |Ctrl+J         |Join with the next line|
 |Ctrl+R         |Go to symbol       |
 |Ctrl+PgUp/PgDown|Go to previous/next tab|
+
+** Plugin usage **
+
+|Key binding    |Action             |
+|---------------|-------------------|
+|Shift+Enter    |Toggle terminal    |
+|Ctrl+Shift+E   |New terminal       |
+|Ctrl+Shift+M   |Markdown preview   |
+|Ctrl+Alt+B     |Beautilfy code     |
+|Ctrl+Alt+G     |Gist file          |
+|Ctrl+Alt+Shift+G|Gist selection    |
+|Ctrl+Alt+P     |New project        |
+
+** Plugins in Pallette **
+
+|Plugins          |
+|-----------------|
+|Atom beautify    |
+|Gist it          |
+|Extract web      |
+|Markdown preview |
+|Pretty JSON      |
+|Project Manager  |
+|Tabs to spaces   |
+|Tail             |
+|Whitespace       |

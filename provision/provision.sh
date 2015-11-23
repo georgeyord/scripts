@@ -35,7 +35,7 @@ function addExecutableToBin() {
     else
         FILENAME=${2}
     fi
-    
+
     ln -s `realpath ${1}` $DEFAULT_BIN_PATH/$1 && chmod +x $DEFAULT_BIN_PATH/$1
 }
 
@@ -61,7 +61,7 @@ function downloadExecutableToBin() {
     echo "Downloading file from: ${1}"
     echo "to: ${TARGET_PATH}"
     wget -q -O "${TARGET_PATH}" $1
-    
+
     echo "Make file '${TARGET_PATH}' executable"
     chmod +x "${TARGET_PATH}"
 }
