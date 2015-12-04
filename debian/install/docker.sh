@@ -12,7 +12,7 @@ if [ ! -e /usr/lib/apt/methods/https ]; then
 	apt-get install --assume-yes --force-yes -qq apt-transport-https
 fi
 
-curl -s https://get.docker.io/ubuntu/ | sh
+curl -s https://get.docker.com | sh
 
 apt-get install --assume-yes --force-yes -qq docker-engine
 
