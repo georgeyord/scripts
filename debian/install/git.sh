@@ -27,7 +27,7 @@ su $DEFAULT_USER -c "git config --global color.diff auto"
 su $DEFAULT_USER -c "git config --global color.interactive=auto"
 su $DEFAULT_USER -c "git config --global color.status auto"
 su $DEFAULT_USER -c "git config --global core.autocrlf input"
-su $DEFAULT_USER -c "git config --global push.default current"
+su $DEFAULT_USER -c "git config --global push.default simple"
 
 downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/git/bin/gitpr.sh gitpr
 

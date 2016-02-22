@@ -24,6 +24,8 @@ apm install elasticsearch-client
 apm install extract-web
 # An adaptable UI with your favorite syntax theme at it's core!
 apm install nucleus-dark-ui
+# Dockerfile syntax highlighting
+apm install language-docker
 # View a rendered version of the Markdown
 apm install markdown-preview-plus
 # Format JSON
