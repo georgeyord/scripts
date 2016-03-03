@@ -3,7 +3,8 @@
 # Install docker.io
 echo "Install docker.io"
 
-DOCKER_COMPOSE_VERSION=1.5.1
+DOCKER_COMPOSE_VERSION=1.6.2
+DOCKER_MACHINE_VERSION=v0.6.0
 KUBECTL_VERSION=1.1.1
 
 # Check that HTTPS transport is available to APT
@@ -41,6 +42,10 @@ chmod +x /usr/local/bin/docker-compose
 
 # Install Docker compose bash completion
 curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose --version | awk 'NR==1{print $NF}')/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
+
+# Install Docker machine
+curl -L https://github.com/docker/machine/releases/download/${DOCKER_MACHINE_VERSION}/docker-machine-`uname -s`-`uname -m` >/usr/local/bin/docker-machine
+chmod +x /usr/local/bin/docker-machine
 
 # Install Kubernetes's kubectl
 curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl > /usr/local/bin/kubectl && \

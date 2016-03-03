@@ -26,6 +26,7 @@ do
       git stash && echo -e "\n***\n"
     fi
 
+    git fetch
     git pull --rebase
 
     if [[ ! $UNCOMMITED_FILES == 0 ]]; then
