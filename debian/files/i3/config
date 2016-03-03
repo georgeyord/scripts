@@ -1,10 +1,14 @@
-exec --no-startup-id "setxkbmap -model pc105 -layout us,gr -option grp:alt_shift_toggle"
 
+# Toggle between English/Greek keyboard layout
+set $i3-path    /home/user/.i3/
+
+# SET WORKSPACE LABELS
 set $wp-main    "1: main"
-set $wp-code    "2: code"
-set $wp-browse  "3: browse"
-set $wp-tp      "4: tp"
-set $wp-docker  "5: docker"
+set $wp-editor  "2: editor"
+set $wp-code    "3: code"
+set $wp-browse  "5: browse"
+set $wp-tp      "6: tp"
+set $wp-docker  "7: docker"
 set $wp-system  "8: system"
 set $wp-com     "9: com"
 
@@ -23,7 +27,7 @@ set $mod Mod4
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 6
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -98,10 +102,10 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -111,29 +115,23 @@ bindsym $mod+a focus parent
 
 # switch to workspace
 bindsym $mod+1 workspace $wp-main
-bindsym $mod+2 workspace $wp-code
-bindsym $mod+3 workspace $wp-browse
-bindsym $mod+4 workspace $wp-tp
-bindsym $mod+5 workspace $wp-docker
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
+bindsym $mod+2 workspace $wp-editor
+bindsym $mod+3 workspace $wp-code
+bindsym $mod+5 workspace $wp-browse
+bindsym $mod+6 workspace $wp-tp
+bindsym $mod+7 workspace $wp-docker
 bindsym $mod+8 workspace $wp-system
 bindsym $mod+9 workspace $wp-com
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-# Terminals
 bindsym $mod+Shift+1 move container to workspace $wp-main
-# Broswer
-bindsym $mod+Shift+2 move container to workspace $wp-browse
-# Code
+bindsym $mod+Shift+2 move container to workspace $wp-editor
 bindsym $mod+Shift+3 move container to workspace $wp-code
-# Communicate
-bindsym $mod+Shift+4 move container to workspace $wp-com
-# Docker
-bindsym $mod+Shift+5 move container to workspace $wp-tp
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace $wp-browse
+bindsym $mod+Shift+6 move container to workspace $wp-tp
+bindsym $mod+Shift+7 move container to workspace $wp-docker
 bindsym $mod+Shift+8 move container to workspace $wp-system
 bindsym $mod+Shift+9 move container to workspace $wp-com
 bindsym $mod+Shift+0 move container to workspace 10
@@ -147,6 +145,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -170,90 +169,119 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
-
 bindsym $mod+Ctrl+l exec i3-lock
-bindsym $mod+F3 exec i3-msg "workspace 2; exec sensible-browser"
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 -- +10%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -- -10%
-bindsym XF86AudioMute exec pactl set-sink-mute 1 -- toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 1 +10%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 1 -10%
+# Mute enable only
+bindsym XF86AudioMute exec pactl set-sink-mute 1 1
 
 exec numlockx on
 
 ### MAIN ###
 workspace $wp-main output DP-0
+exec --no-startup-id i3-msg 'workspace $wp-main; append_layout /home/user/.i3/workspaces/main.json'
 
-exec --no-startup-id i3-msg 'workspace $wp-main; append_layout /home/user/.i3/workspaces/term_and_sublime.json'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec subl'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec atom'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -t term'
+### EDITOR ###
+workspace $wp-editor output DP-0
+exec --no-startup-id i3-msg 'workspace $wp-editor; append_layout /home/user/.i3/workspaces/editor.json'
+
+assign [class="Atom"] $wp-editor
+assign [class="Sublime_text"] $wp-editor
 
 ### CODE ###
 workspace $wp-code output DP-0
+exec --no-startup-id i3-msg 'workspace $wp-code; append_layout /home/user/.i3/workspaces/code.json'
+
 assign [class="phpstorm"] $wp-code
 assign [class="jetbrains\\-idea"] $wp-code
+assign [class="jetbrains\-idea"] $wp-code
 assign [class="jetbrains\\-rubymine"] $wp-code
+assign [class="jetbrains\-rubymine"] $wp-code
 assign [class="sun\\-awt\\-X11\\-XFramePeer"] $wp-code
 assign [class="mysql\\-workbench\\-bin"] $wp-code
 
-exec --no-startup-id i3-msg 'workspace $wp-code; append_layout /home/user/.i3/workspaces/code.json'
-
 ### SYSTEM ###
 workspace $wp-system output DP-0
-
 exec --no-startup-id i3-msg 'workspace $wp-system; append_layout /home/user/.i3/workspaces/system.json'
-exec --no-startup-id i3-msg 'workspace $wp-main; exec sudo multitail /var/log/supervisor/*.log'
-#exec --no-startup-id i3-msg 'workspace $wp-main; exec gnome-terminal -e htop -t htop'
-
 
 ### BROWSE ###
 workspace $wp-browse output DP-1
-assign [class="browser"] $wp-browse
-assign [class="X\\-www\\-browser"] $wp-browse
+exec --no-startup-id i3-msg 'workspace $wp-tp; append_layout /home/user/.i3/workspaces/browser.json'
 
-exec --no-startup-id i3-msg 'workspace $wp-browse; append_layout /home/user/.i3/workspaces/browser.json'
-exec --no-startup-id i3-msg 'workspace $wp-browse; exec sensible-browser'
+assign [window_role="browser"] $wp-browse
+assign [class="browser"] $wp-browse
+assign [class="google\\-browser"] $wp-browse
+assign [class="X\\-www\\-browser"] $wp-browse
 
 ### TP ###
 workspace $wp-tp output DP-1
-set $docker_tp_path /opt/codebase/tripsta/docker/compose/
-set $tp_path /opt/codebase/tripsta/
-
 exec --no-startup-id i3-msg 'workspace $wp-tp; append_layout /home/user/.i3/workspaces/tp.json'
-exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$tp_path -t tpapp'
-exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
-exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
-exec --no-startup-id i3-msg 'workspace $wp-tp; exec gnome-terminal --working-directory=$docker_tp_path -t tpdck'
+
+# set $docker_tp_path /opt/codebase/tripsta/docker/compose/
+# set $tp_path /opt/codebase/tripsta/
 
 ### DOCKER ###
 workspace $wp-docker output DP-1
-set $docker_path /opt/codebase/dockerfiles/compose/
-
 exec --no-startup-id i3-msg 'workspace $wp-docker; append_layout /home/user/.i3/workspaces/docker.json'
-exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
-exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
-exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
-exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
-exec --no-startup-id i3-msg 'workspace $wp-docker; exec gnome-terminal --working-directory=$docker_path -t dck'
 
 ### COM ###
 workspace $wp-com output DP-1
+exec --no-startup-id i3-msg 'workspace $wp-com; append_layout /home/user/.i3/workspaces/com.json'
 
 assign [class="(?i)skype"] $wp-com
+assign [class="Wine"] $wp-com
 assign [class="(?i)zoiper"] $wp-com
 assign [class="(?i)linphone"] $wp-com
 for_window [class="(?i)zoiper"] floating disable
 
-exec --no-startup-id i3-msg 'workspace $wp-com; append_layout /home/user/.i3/workspaces/com.json'
-exec --no-startup-id i3-msg 'workspace $wp-com; exec zoiper'
-# exec --no-startup-id i3-msg 'workspace $wp-com; exec skype'
+### STATUS BAR ###
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	# Using custom i3status.conf
-	#status_command i3status
-	status_command sudo i3status -c ~/.i3/i3status.conf
+        # Using custom i3status.conf
+        status_command sudo i3status -c ~/.i3/i3status.conf
 }
+
+### APPLICATIONS / INITIALIZATIONS ###
+
+# Toggle between English/Greek keyboard layout
+exec --no-startup-id "setxkbmap -model pc105 -layout us,gr -option grp:alt_shift_toggle"
+# Start Dropbox if found
+exec --no-startup-id i3-msg 'exec test $(which dropbox) && dropbox start > /tmp/dropbox.log'
+
+
+#set $docker_tp_path /opt/codebase/tripsta/docker/compose/
+#set $tp_path /opt/codebase/tripsta/app/
+#set $fl_path /opt/codebase/tripsta/frontline/
+#exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$docker_tp_path'
+#exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$docker_tp_path'
+#exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$tp_path'
+#exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$fl_path'
+#exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$docker_tp_path'
+
+exec --no-startup-id i3-msg 'workspace $wp-editor; exec test $(which subl) && exec subl'
+exec --no-startup-id i3-msg 'workspace $wp-editor; exec test $(which atom) && atom'
+
+#exec --no-startup-id i3-msg 'workspace $wp-code; exec test $(which rubymine) && rubymine'
+#exec --no-startup-id i3-msg 'workspace $wp-code; exec test $(which phpstorm) && phpstorm'
+
+#exec --no-startup-id i3-msg 'workspace $wp-system; exec test $(which multitail) && sudo multitail /var/log/supervisor/*.log'
+#exec --no-startup-id i3-msg 'workspace $wp-system; exec test $(which htop) && htop'
+
+exec --no-startup-id i3-msg 'workspace $wp-browse; exec test $(which sensible-browser) && sensible-browser'
+
+#exec --no-startup-id i3-msg 'workspace $wp-tp; exec i3-sensible-terminal --working-directory=$tp_path -t tpapp'
+#exec --no-startup-id i3-msg 'workspace $wp-tp; exec i3-sensible-terminal --working-directory=$docker_tp_path'
+#exec --no-startup-id i3-msg 'workspace $wp-tp; exec i3-sensible-terminal --working-directory=$docker_tp_path'
+#exec --no-startup-id i3-msg 'workspace $wp-tp; exec i3-sensible-terminal --working-directory=$docker_tp_path'
+
+# set $docker_path /opt/codebase/dockerfiles/compose/
+#exec --no-startup-id i3-msg 'workspace $wp-docker; exec i3-sensible-terminal --working-directory=$docker_path'
+#exec --no-startup-id i3-msg 'workspace $wp-docker; exec i3-sensible-terminal --working-directory=$docker_path'
+#exec --no-startup-id i3-msg 'workspace $wp-docker; exec i3-sensible-terminal --working-directory=$docker_path'
+#exec --no-startup-id i3-msg 'workspace $wp-docker; exec i3-sensible-terminal --working-directory=$docker_path'
+#exec --no-startup-id i3-msg 'workspace $wp-docker; exec i3-sensible-terminal --working-directory=$docker_path'
+
+#exec --no-startup-id i3-msg 'workspace $wp-com; test $(which zoiper) && exec zoiper'
+#exec --no-startup-id i3-msg 'workspace $wp-com; test $(which skype) && exec skype'

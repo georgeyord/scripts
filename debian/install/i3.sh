@@ -33,12 +33,13 @@ wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/fil
 
 mkdir -p $DEFAULT_USER_PATH/.i3/workspaces
 
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/browser.json > $DEFAULT_USER_PATH/.i3/workspaces/browser.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/main.json > $DEFAULT_USER_PATH/.i3/workspaces/main.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/editor.json > $DEFAULT_USER_PATH/.i3/workspaces/editor.json
 wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/code.json > $DEFAULT_USER_PATH/.i3/workspaces/code.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/com.json > $DEFAULT_USER_PATH/.i3/workspaces/com.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/browser.json > $DEFAULT_USER_PATH/.i3/workspaces/browser.json
 wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/docker.json > $DEFAULT_USER_PATH/.i3/workspaces/docker.json
 wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/system.json > $DEFAULT_USER_PATH/.i3/workspaces/system.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/term_and_sublime.json > $DEFAULT_USER_PATH/.i3/workspaces/term_and_sublime.json
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/com.json > $DEFAULT_USER_PATH/.i3/workspaces/com.json
 
 # Get some usefull scripts for i3
 downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/i3_switch_workspace.sh i3_switch_workspace

@@ -3,22 +3,23 @@
   // stacked split container with 1 children
   "border": "normal",
   "floating": "auto_off",
-  "layout": "stacked",
+  "layout": "tabbed",
   "percent": 1,
   "type": "con",
   "nodes": [
+  {
+    "border": "normal",
+    "floating": "auto_off",
+    "name": "browser",
+    "percent": 1,
+    "swallows": [
     {
-      "border": "normal",
-      "floating": "auto_off",
-      "name": "browser",
-      "percent": 1,
-      "swallows": [
-      {
-        "class": "^X\\-www\\-browser$"
-      }
-      ],
-      "type": "con"
+      "window_role": "browser"
     }
+    ],
+    "type": "con"
+  }
   ]
+
 }
 

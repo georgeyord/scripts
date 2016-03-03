@@ -14,8 +14,7 @@
             "percent": 0.25,
             "swallows": [
                {
-                "class": "^Gnome\\-terminal$",
-                "title": "^tpapp$"
+                "class": "^Gnome\\-terminal$"
                }
             ],
             "type": "con"
@@ -27,8 +26,7 @@
             "percent": 0.25,
             "swallows": [
                {
-                "class": "^Gnome\\-terminal$",
-                "title": "^tpdck$"
+                "class": "^Gnome\\-terminal$"
                }
             ],
             "type": "con"
@@ -40,8 +38,7 @@
             "percent": 0.25,
             "swallows": [
                {
-                "class": "^Gnome\\-terminal$",
-                "title": "^tpdck$"
+                "class": "^Gnome\\-terminal$"
                }
             ],
             "type": "con"
@@ -53,8 +50,7 @@
             "percent": 0.25,
             "swallows": [
                {
-                "class": "^Gnome\\-terminal$",
-                "title": "^tpdck$"
+                "class": "^Gnome\\-terminal$"
                }
             ],
             "type": "con"
