@@ -6,7 +6,7 @@ wget https://atom.io/download/deb -O /tmp/atom.deb
 dpkg -i /tmp/atom.deb
 
 # Set ownership to the default user
-12	chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.atom
+chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.atom
 
 # Beautifier for Atom
 apm install atom-beautify
