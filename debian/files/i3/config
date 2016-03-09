@@ -215,14 +215,14 @@ assign [class="X\\-www\\-browser"] $wp-browse
 
 ### TP ###
 workspace $wp-tp output DP-1
-exec --no-startup-id i3-msg 'workspace $wp-tp; append_layout /home/user/.i3/workspaces/tp.json'
+# exec --no-startup-id i3-msg 'workspace $wp-tp; append_layout /home/user/.i3/workspaces/tp.json'
 
 # set $docker_tp_path /opt/codebase/tripsta/docker/compose/
 # set $tp_path /opt/codebase/tripsta/
 
 ### DOCKER ###
 workspace $wp-docker output DP-1
-exec --no-startup-id i3-msg 'workspace $wp-docker; append_layout /home/user/.i3/workspaces/docker.json'
+# exec --no-startup-id i3-msg 'workspace $wp-docker; append_layout /home/user/.i3/workspaces/docker.json'
 
 ### COM ###
 workspace $wp-com output DP-1
@@ -250,6 +250,11 @@ exec --no-startup-id "setxkbmap -model pc105 -layout us,gr -option grp:alt_shift
 # Start Dropbox if found
 exec --no-startup-id i3-msg 'exec test $(which dropbox) && dropbox start > /tmp/dropbox.log'
 
+exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal'
 
 #set $docker_tp_path /opt/codebase/tripsta/docker/compose/
 #set $tp_path /opt/codebase/tripsta/app/
@@ -259,6 +264,7 @@ exec --no-startup-id i3-msg 'exec test $(which dropbox) && dropbox start > /tmp/
 #exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$tp_path'
 #exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$fl_path'
 #exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal --working-directory=$docker_tp_path'
+
 
 exec --no-startup-id i3-msg 'workspace $wp-editor; exec test $(which subl) && exec subl'
 exec --no-startup-id i3-msg 'workspace $wp-editor; exec test $(which atom) && atom'
