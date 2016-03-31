@@ -51,4 +51,8 @@ chmod +x /usr/local/bin/docker-machine
 curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl > /usr/local/bin/kubectl && \
 chmod +x /usr/local/bin/kubectl
 
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-containers.sh docker-cleanup-containers
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-images.sh docker-cleanup-images
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-volumes.sh docker-cleanup-volumes
+
 unset FLAG_INTERACTIVE

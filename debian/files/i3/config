@@ -249,6 +249,8 @@ bar {
 exec --no-startup-id "setxkbmap -model pc105 -layout us,gr -option grp:alt_shift_toggle"
 # Start Dropbox if found
 exec --no-startup-id i3-msg 'exec test $(which dropbox) && dropbox start > /tmp/dropbox.log'
+# Start Parcellite if found
+exec --no-startup-id i3-msg 'exec test $(which parcellite) && parcellite > /tmp/parcellite.log'
 
 exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wp-main; exec i3-sensible-terminal'

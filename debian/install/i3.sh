@@ -28,28 +28,28 @@ apt-get install --assume-yes --force-yes -qq \
 
 mkdir -p $DEFAULT_USER_PATH/.i3
 
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/config > $DEFAULT_USER_PATH/.i3/config
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/i3status.conf > $DEFAULT_USER_PATH/.i3/i3status.conf
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/config > $DEFAULT_USER_PATH/.i3/config
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/i3status.conf > $DEFAULT_USER_PATH/.i3/i3status.conf
 
 mkdir -p $DEFAULT_USER_PATH/.i3/workspaces
 
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/main.json > $DEFAULT_USER_PATH/.i3/workspaces/main.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/editor.json > $DEFAULT_USER_PATH/.i3/workspaces/editor.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/code.json > $DEFAULT_USER_PATH/.i3/workspaces/code.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/browser.json > $DEFAULT_USER_PATH/.i3/workspaces/browser.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/docker.json > $DEFAULT_USER_PATH/.i3/workspaces/docker.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/system.json > $DEFAULT_USER_PATH/.i3/workspaces/system.json
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/workspaces/com.json > $DEFAULT_USER_PATH/.i3/workspaces/com.json
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/workspaces/main.json > $DEFAULT_USER_PATH/.i3/workspaces/main.json
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/workspaces/editor.json > $DEFAULT_USER_PATH/.i3/workspaces/editor.json
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/workspaces/code.json > $DEFAULT_USER_PATH/.i3/workspaces/code.json
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/workspaces/browser.json > $DEFAULT_USER_PATH/.i3/workspaces/browser.json
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/workspaces/docker.json > $DEFAULT_USER_PATH/.i3/workspaces/docker.json
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/workspaces/system.json > $DEFAULT_USER_PATH/.i3/workspaces/system.json
+wget -qO- ${REPO_SCRIPT_PATH}/files/i3/workspaces/com.json > $DEFAULT_USER_PATH/.i3/workspaces/com.json
 
 # Get some usefull scripts for i3
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/i3_switch_workspace.sh i3_switch_workspace
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/i3exec.sh i3exec
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/netspeed.sh netspeed
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-dp0-dp1.sh xrand-dp0-dp1
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-dp0.sh xrand-dp0
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-laptop-dp0.sh xrand-laptop-dp0
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-laptop-vga.sh xrand-laptop-vga
-downloadExecutableToBin https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/i3/bin/xrand-laptop.sh xrand-laptop
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/i3_switch_workspace.sh i3_switch_workspace
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/i3exec.sh i3exec
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/netspeed.sh netspeed
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/xrand-dp0-dp1.sh xrand-dp0-dp1
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/xrand-dp0.sh xrand-dp0
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/xrand-laptop-dp0.sh xrand-laptop-dp0
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/xrand-laptop-vga.sh xrand-laptop-vga
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/i3/bin/xrand-laptop.sh xrand-laptop
 
 ln -s /usr/bin/i3lock $DEFAULT_BIN_PATH/lock
 

@@ -8,8 +8,8 @@ apt-get install --assume-yes --force-yes -qq \
 
 mkdir -p $DEFAULT_USER_PATH/.vnc
 
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/vncserver/xstartup > $DEFAULT_USER_PATH/.vnc/xstartup
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/debian/files/vncserver/xstartup.xfce > $DEFAULT_USER_PATH/.vnc/xstartup.xfce
+wget -qO- ${REPO_SCRIPT_PATH}/files/vncserver/xstartup > $DEFAULT_USER_PATH/.vnc/xstartup
+wget -qO- ${REPO_SCRIPT_PATH}/files/vncserver/xstartup.xfce > $DEFAULT_USER_PATH/.vnc/xstartup.xfce
 
 if [[ $INTERACTIVE == 0 ]]; then
     FLAG_INTERACTIVE=0

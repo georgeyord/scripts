@@ -23,24 +23,7 @@ function addRepo() {
     fi
 }
 
-function addExecutableToBin() {
-
-    if [ -z "${1}" ]; then
-        echo "Executable file was not specified, ignoring..."
-        sleep 2
-    fi
-
-    if [ -z "${2}" ]; then
-        FILENAME=$(getFilenameFromUrl ${1})
-    else
-        FILENAME=${2}
-    fi
-
-    ln -s `realpath ${1}` $DEFAULT_BIN_PATH/$1 && chmod +x $DEFAULT_BIN_PATH/$1
-}
-
-function downloadExecutableToBin() {
-
+function saveExecutableToBin() {
     if [ -z "${1}" ]; then
         echo "Executable file was not specified, ignoring..."
         sleep 2
@@ -240,13 +223,18 @@ ensureRoot $@
 
 REMOTE=$(getOptionWithValue remote 0 $@)
 LOCAL=$(getOptionWithValue local 0 $@)
+BRANCH=$(getOptionWithValue branch 0 $@)
+
+if [[ $BRANCH == - ]]; then
+    BRANCH='master'
+fi
 
 if [[ ! $REMOTE == 0 ]]; then
-    SCRIPT_BASE=$REMOTE
+    REPO_BASE_PATH=$REMOTE
 elif [[ ! $LOCAL == 0 ]]; then
-    SCRIPT_BASE=$LOCAL
+    REPO_BASE_PATH=$LOCAL
 else
-    SCRIPT_BASE="https://raw.githubusercontent.com/georgeyord/scripts/master/debian/install"
+    REPO_BASE_PATH="https://raw.githubusercontent.com/georgeyord/scripts/${BRANCH}/debian"
     REMOTE=1
 fi
 
@@ -263,6 +251,8 @@ fi
 DEFAULT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
 DEFAULT_USER_PATH=$(awk -v val=1000 -F ":" '$3==val{print $6}' /etc/passwd)
 DEFAULT_BIN_PATH=/usr/local/bin
+REPO_INSTALL_PATH="${REPO_BASE_PATH}/install"
+REPO_SCRIPT_PATH="${REPO_BASE_PATH}/debian"
 
 read -a SCRIPTS <<< "duration-start $(getNonOptionArguments $@) duration-stop"
 SCRIPTS_COUNT=${#SCRIPTS[@]}
@@ -274,7 +264,7 @@ if [[ $DEBUG == 1 ]]; then
     echo "NON OPTION ARGS: $(getNonOptionArguments $@)"
     echo "INTERACTIVE: $INTERACTIVE"
     echo "DEFAULT_USER: $DEFAULT_USER"
-    echo "SCRIPT_BASE: $SCRIPT_BASE"
+    echo "REPO_BASE_PATH: $REPO_BASE_PATH"
     echo "SCRIPTS_COUNT: $SCRIPTS_COUNT"
     echo "SCRIPTS: ${SCRIPTS[@]}"
     exit 1;
@@ -286,10 +276,10 @@ fi
 
 for (( i=0;i<$SCRIPTS_COUNT;i++)); do
     if [[ $REMOTE == 1 ]]; then
-        FILENAME="$(saveTempExecFile $SCRIPT_BASE/${SCRIPTS[${i}]}.sh)"
+        FILENAME="$(saveTempExecFile $REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh)"
         IS_FILENAME_TMP=1
     else
-        FILENAME=$SCRIPT_BASE/${SCRIPTS[${i}]}.sh
+        FILENAME=$REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh
         IS_FILENAME_TMP=0
     fi
 
