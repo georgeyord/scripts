@@ -221,18 +221,18 @@ function yesNo() {
 
 ensureRoot $@
 
-REMOTE=$(getOptionWithValue remote 0 $@)
 LOCAL=$(getOptionWithValue local 0 $@)
-BRANCH=$(getOptionWithValue branch 0 $@)
+REMOTE=$(getOptionWithValue remote 0 $@)
+BRANCH=$(getOptionWithValue branch master $@)
 
 if [[ $BRANCH == - ]]; then
     BRANCH='master'
 fi
 
 if [[ ! $REMOTE == 0 ]]; then
-    REPO_BASE_PATH=$REMOTE
+    REPO_BASE_PATH="${REMOTE}/debian"
 elif [[ ! $LOCAL == 0 ]]; then
-    REPO_BASE_PATH=$LOCAL
+    REPO_BASE_PATH="${LOCAL}/debian"
 else
     REPO_BASE_PATH="https://raw.githubusercontent.com/georgeyord/scripts/${BRANCH}/debian"
     REMOTE=1
@@ -261,13 +261,17 @@ DEBUG=$(getOption debug $@)
 
 if [[ $DEBUG == 1 ]]; then
     echo "DEBUG: $DEBUG"
+    echo "LOCAL: $LOCAL"
+    echo "REMOTE: $REMOTE"
     echo "NON OPTION ARGS: $(getNonOptionArguments $@)"
     echo "INTERACTIVE: $INTERACTIVE"
     echo "DEFAULT_USER: $DEFAULT_USER"
     echo "REPO_BASE_PATH: $REPO_BASE_PATH"
+    echo "REPO_INSTALL_PATH: $REPO_INSTALL_PATH"
+    echo "REPO_SCRIPT_PATH: $REPO_SCRIPT_PATH"
     echo "SCRIPTS_COUNT: $SCRIPTS_COUNT"
     echo "SCRIPTS: ${SCRIPTS[@]}"
-    exit 1;
+    # exit 1;
 fi
 
 #######################################
@@ -277,9 +281,16 @@ fi
 for (( i=0;i<$SCRIPTS_COUNT;i++)); do
     if [[ $REMOTE == 1 ]]; then
         FILENAME="$(saveTempExecFile $REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh)"
+        if [[ $DEBUG == 1 ]]; then
+          echo "REMOTE FILENAME: $REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh)"
+          echo "TEMP FILENAME: ${FILENAME}"
+        fi
         IS_FILENAME_TMP=1
     else
         FILENAME=$REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh
+        if [[ $DEBUG == 1 ]]; then
+          echo "LOCAL FILENAME: ${FILENAME}"
+        fi
         IS_FILENAME_TMP=0
     fi
 
