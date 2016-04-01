@@ -54,5 +54,6 @@ chmod +x /usr/local/bin/kubectl
 saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-containers.sh docker-cleanup-containers
 saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-images.sh docker-cleanup-images
 saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-volumes.sh docker-cleanup-volumes
+saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-api.sh docker-api
 
 unset FLAG_INTERACTIVE
