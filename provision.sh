@@ -230,7 +230,7 @@ function updateProvisionScript() {
   REPO_BASE_PATH="$2"
   TMP_PROVISION_PATH="/tmp"
   TMP_PROVISION_BASENAME="provision.sh"
-  TMP_PROVISION_REMOTE="$REPO_BASE_PATH/provision/provision.sh"
+  TMP_PROVISION_REMOTE="$REPO_BASE_PATH/provision.sh"
   wget -qO- "$TMP_PROVISION_REMOTE" > "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME"
   TMP_PROVISION_CKSUM="`md5sum \"$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME\" | awk '{print $1}'`"
   # echo "$TMP_PROVISION_REMOTE - $TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME - $TMP_PROVISION_CKSUM"
@@ -277,8 +277,9 @@ fi
 DEFAULT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
 DEFAULT_USER_PATH=$(awk -v val=1000 -F ":" '$3==val{print $6}' /etc/passwd)
 DEFAULT_BIN_PATH=/usr/local/bin
-REPO_INSTALL_PATH="${REPO_BASE_PATH}/debian/install"
-REPO_SCRIPT_PATH="${REPO_BASE_PATH}/debian/files"
+REPO_INSTALL_PATH="${REPO_BASE_PATH}/install"
+REPO_SCRIPT_PATH="${REPO_BASE_PATH}/files"
+REPO_SETUP_PATH="${REPO_BASE_PATH}/setup"
 
 read -a SCRIPTS <<< "duration-start $(getNonOptionArguments $@) duration-stop"
 SCRIPTS_COUNT=${#SCRIPTS[@]}
@@ -301,7 +302,7 @@ if [[ $DEBUG == 1 ]]; then
 fi
 
 NO_UPDATE=$(getOption no-update $@)
-if [[ ! $REMOTE == 0 ]] && [[ $NO_UPDATE == 0 ]]; then
+if [[ $REMOTE == 1 ]] && [[ $NO_UPDATE == 0 ]]; then
   updateProvisionScript $0 $REPO_BASE_PATH
 fi
 
