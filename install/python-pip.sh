@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install VLC player"
+echo "Install Puthon with pip"
 
 apt-get install --assume-yes --force-yes -qq \
         vlc

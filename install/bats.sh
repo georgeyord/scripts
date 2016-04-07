@@ -12,7 +12,7 @@ if [[ $EXISTS == 0 ]]; then
 else
   git clone https://github.com/sstephenson/bats.git ~/.bats
   cd ~/.bats
-  sudo ./install.sh /usr/local
+  ./install.sh /usr/local
 fi
 
 unset FLAG_INTERACTIVE
