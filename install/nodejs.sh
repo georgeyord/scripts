@@ -3,5 +3,5 @@
 # Install node.js
 echo "Install node.js"
 
-curl -sL https://deb.nodesource.com/setup_4.x | -E bash -
+source <(curl -sL https://deb.nodesource.com/setup_4.x)
 apt-get install --assume-yes --force-yes -qq nodejs

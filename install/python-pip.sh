@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Puthon with pip"
+echo "Install Python with pip"
 
 apt-get install --assume-yes --force-yes -qq \
         vlc
