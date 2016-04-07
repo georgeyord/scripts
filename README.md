@@ -5,7 +5,7 @@ Provision scripts
 
 ## Install provision script:
 ```
-wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/provision/provision.sh > /tmp/provision.sh && chmod a+x /tmp/provision.sh && sudo mv /tmp/provision.sh /usr/local/bin/provision && sudo provision test
+wget -qO- https://raw.githubusercontent.com/georgeyord/scripts/master/provision.sh > /tmp/provision.sh && chmod a+x /tmp/provision.sh && sudo mv /tmp/provision.sh /usr/local/bin/provision && sudo provision test
 ```
 
 ## Use `provision` to install a list of services:
