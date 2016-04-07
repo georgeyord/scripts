@@ -11,7 +11,7 @@ else
 fi
 
 # Get some usefull scripts for i3 
-saveExecutableToBin ${REPO_SCRIPT_PATH}/files/bin/reset-keyboard.sh
+saveExecutableToBin ${REPO_SCRIPT_PATH}/bin/reset-keyboard.sh
 
 if [[ $FLAG_INTERACTIVE == 1 ]]; then
     echo "Download the installation package from http://www.jetbrains.com/idea/download/"

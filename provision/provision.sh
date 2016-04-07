@@ -215,6 +215,32 @@ function yesNo() {
     echo $FN_ANSWER
 }
 
+function updateProvisionScript() {
+  which md5sum
+  if [[ $? -ne 0 ]]; then
+      echo "md5sum is required, please install before retriyng..."; exit 1
+  fi
+
+  CURRENT_FILE="$1"
+  PROVISION_PATH="`dirname \"$CURRENT_FILE\"`"
+  PROVISION_BASENAME="`basename \"$CURRENT_FILE\"`"
+  PROVISION_CKSUM="`md5sum \"$PROVISION_PATH/$PROVISION_BASENAME\" | awk '{print $1}'`"
+  # echo "$PROVISION_PATH/$PROVISION_BASENAME - $PROVISION_CKSUM"
+
+  REPO_BASE_PATH="$2"
+  TMP_PROVISION_PATH="/tmp"
+  TMP_PROVISION_BASENAME="provision.sh"
+  TMP_PROVISION_REMOTE="$REPO_BASE_PATH/provision/provision.sh"
+  wget -qO- "$TMP_PROVISION_REMOTE" > "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME"
+  TMP_PROVISION_CKSUM="`md5sum \"$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME\" | awk '{print $1}'`"
+  # echo "$TMP_PROVISION_REMOTE - $TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME - $TMP_PROVISION_CKSUM"
+
+  if [[ ! "$PROVISION_CKSUM" == "$TMP_PROVISION_CKSUM" ]] && [[ $(yesNo  "Update provision script to new version?") == 1 ]]; then
+      cat "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME" > "$PROVISION_PATH/$PROVISION_BASENAME"
+      echo "$PROVISION_PATH/$PROVISION_BASENAME was updated"
+  fi
+}
+
 #######################################
 # DEFINE WHAT TO RUN
 #######################################
@@ -230,11 +256,11 @@ if [[ $BRANCH == - ]]; then
 fi
 
 if [[ ! $REMOTE == 0 ]]; then
-    REPO_BASE_PATH="${REMOTE}/debian"
+    REPO_BASE_PATH="${REMOTE}"
 elif [[ ! $LOCAL == 0 ]]; then
-    REPO_BASE_PATH="${LOCAL}/debian"
+    REPO_BASE_PATH="${LOCAL}"
 else
-    REPO_BASE_PATH="https://raw.githubusercontent.com/georgeyord/scripts/${BRANCH}/debian"
+    REPO_BASE_PATH="https://raw.githubusercontent.com/georgeyord/scripts/${BRANCH}"
     REMOTE=1
 fi
 
@@ -251,8 +277,8 @@ fi
 DEFAULT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
 DEFAULT_USER_PATH=$(awk -v val=1000 -F ":" '$3==val{print $6}' /etc/passwd)
 DEFAULT_BIN_PATH=/usr/local/bin
-REPO_INSTALL_PATH="${REPO_BASE_PATH}/install"
-REPO_SCRIPT_PATH="${REPO_BASE_PATH}/debian"
+REPO_INSTALL_PATH="${REPO_BASE_PATH}/debian/install"
+REPO_SCRIPT_PATH="${REPO_BASE_PATH}/debian/files"
 
 read -a SCRIPTS <<< "duration-start $(getNonOptionArguments $@) duration-stop"
 SCRIPTS_COUNT=${#SCRIPTS[@]}
@@ -272,6 +298,11 @@ if [[ $DEBUG == 1 ]]; then
     echo "SCRIPTS_COUNT: $SCRIPTS_COUNT"
     echo "SCRIPTS: ${SCRIPTS[@]}"
     # exit 1;
+fi
+
+NO_UPDATE=$(getOption no-update $@)
+if [[ ! $REMOTE == 0 ]] && [[ $NO_UPDATE == 0 ]]; then
+  updateProvisionScript $0 $REPO_BASE_PATH
 fi
 
 #######################################

@@ -18,7 +18,7 @@ apt-get install --assume-yes --force-yes -qq \
 	byobu
 
 mkdir -p $DEFAULT_USER_PATH/.byobu
-wget -qO- ${REPO_SCRIPT_PATH}/files/byobu/.tmux.conf > $DEFAULT_USER_PATH/.byobu/.tmux.conf
+wget -qO- ${REPO_SCRIPT_PATH}/byobu/.tmux.conf > $DEFAULT_USER_PATH/.byobu/.tmux.conf
 
 # Set ownership to the default user
 chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.byobu

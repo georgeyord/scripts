@@ -6,7 +6,7 @@ echo "More details here: https://github.com/magicmonty/bash-git-prompt"
 
 git clone https://github.com/magicmonty/bash-git-prompt.git $DEFAULT_USER_PATH/.bash-git-prompt
 
-wget -qO- ${REPO_SCRIPT_PATH}/files/gitprompt/.git-prompt-colors.sh > $DEFAULT_USER_PATH/.git-prompt-colors.sh
+wget -qO- ${REPO_SCRIPT_PATH}/gitprompt/.git-prompt-colors.sh > $DEFAULT_USER_PATH/.git-prompt-colors.sh
 
 # Set ownership to the default user
 chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.bash-git-prompt

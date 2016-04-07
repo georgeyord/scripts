@@ -53,9 +53,9 @@ echo "Install Kubernetes's kubectl"
 curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl > /usr/local/bin/kubectl && \
 chmod +x /usr/local/bin/kubectl
 
-saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-containers.sh docker-cleanup-containers
-saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-images.sh docker-cleanup-images
-saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-cleanup-volumes.sh docker-cleanup-volumes
-saveExecutableToBin ${REPO_SCRIPT_PATH}/files/docker/docker-api.sh docker-api
+saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-containers.sh docker-cleanup-containers
+saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-images.sh docker-cleanup-images
+saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-volumes.sh docker-cleanup-volumes
+saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-api.sh docker-api
 
 unset FLAG_INTERACTIVE
