@@ -216,8 +216,7 @@ function yesNo() {
 }
 
 function updateProvisionScript() {
-  which md5sum
-  if [[ $? -ne 0 ]]; then
+  if [[ $(which md5sum) == -1 ]]; then
       echo "md5sum is required, please install before retriyng..."; exit 1
   fi
 
