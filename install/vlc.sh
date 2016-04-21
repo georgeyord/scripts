@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "Install Python pip"
+echo "Install VLC"
 
 apt-get install --assume-yes --force-yes -qq \
-        python-pip
+        vlc
 
 unset FLAG_INTERACTIVE

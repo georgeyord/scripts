@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Install and configure VirtualBox
 echo "Install and configure VirtualBox"
 
 function addRepo() {

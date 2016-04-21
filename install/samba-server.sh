@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Install Samba server
 echo "Install Samba server"
 apt-get install --assume-yes --force-yes -qq \
 	samba cifs-utils

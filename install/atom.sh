@@ -5,9 +5,6 @@ echo "Install Atom"
 wget https://atom.io/download/deb -O /tmp/atom.deb
 dpkg -i /tmp/atom.deb
 
-# Set ownership to the default user
-chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.atom
-
 # Beautifier for Atom
 apm install atom-beautify
 # Bundled with Atom
@@ -45,5 +42,9 @@ apm install tail
 apm install trailing-spaces
 # Bundled with Atom
 # apm install whitespace
+
+# Set ownership to the default user
+mkdir -p $DEFAULT_USER_PATH/.atom
+chown -R $DEFAULT_USER:$DEFAULT_USER_GROUP $DEFAULT_USER_PATH/.atom
 
 unset FLAG_INTERACTIVE

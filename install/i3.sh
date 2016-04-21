@@ -54,7 +54,7 @@ saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/xrand-laptop.sh xrand-laptop
 ln -s /usr/bin/i3lock $DEFAULT_BIN_PATH/lock
 
 # Set ownership to the default user
-chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.i3
+chown -R $DEFAULT_USER:$DEFAULT_USER_GROUP $DEFAULT_USER_PATH/.i3
 
 gsettings set org.gnome.desktop.background show-desktop-icons false
 unset FLAG_INTERACTIVE

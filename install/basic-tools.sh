@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Install basic tools
 echo "Install basic tools"
 apt-get install --assume-yes --force-yes -qq \
 	build-essential \
@@ -14,4 +13,7 @@ apt-get install --assume-yes --force-yes -qq \
 	dnsutils \
 	mtr \
 	libssl-dev \
-	g++ make
+	g++ make \
+	apache-utils \
+	netcat-openbsd \
+	bash-completion

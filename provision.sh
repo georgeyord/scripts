@@ -273,7 +273,8 @@ fi
 
 # Find the default user (uid 1000) to use it when a folder needs
 # its permissions fixed.
-DEFAULT_USER=$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)
+DEFAULT_USER=$(id -un)
+DEFAULT_USER_GROUP=$(id -gn)
 DEFAULT_USER_PATH=$(awk -v val=1000 -F ":" '$3==val{print $6}' /etc/passwd)
 DEFAULT_BIN_PATH=/usr/local/bin
 REPO_INSTALL_PATH="${REPO_BASE_PATH}/install"
@@ -327,6 +328,6 @@ for (( i=0;i<$SCRIPTS_COUNT;i++)); do
 
     source $FILENAME
     if [[ $IS_FILENAME_TMP == 1 ]]; then
-        rm "$FILENAME"
+        rm -f "$FILENAME"
     fi
 done

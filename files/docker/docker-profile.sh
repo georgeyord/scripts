@@ -1,5 +1,10 @@
 #!/bin/bash
 
+alias dck='docker'
+alias d='docker'
+alias dc='docker-compose'
+alias dm='docker-machine'
+
 export TIMEZONE='Europe/Athens'
 
 export BASIC_AUTH_USER='user'

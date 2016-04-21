@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Install JetBrains Idea
 echo "Install JetBrains Idea"
 echo "MANUAL INSTALLATION REQUIRED"
 

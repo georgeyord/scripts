@@ -1,5 +1,4 @@
 #!/bin/bash
-# Install Java
 
 echo "Install Java"
 apt-get install --assume-yes --force-yes -qq \

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Install and configure git
-echo "Install and configure git"
+echo "Install and configure Git"
 apt-get install --assume-yes --force-yes -qq \
     git git-core git-gui git-doc
 

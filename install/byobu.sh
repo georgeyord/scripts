@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Install Byobu
 echo "Install Byobu"
 
 if [[ $INTERACTIVE == 0 ]]; then
@@ -8,10 +7,10 @@ if [[ $INTERACTIVE == 0 ]]; then
 else
     FLAG_ADD_REPO=$(yesNo  "Do you wish to add byobu repo to get the latest version?")
 fi
-
+ 
 if [[ $FLAG_ADD_REPO == 1 ]]; then
-    addRepo '^deb http://ppa.launchpad.net/byobu/ppa/ubuntu\(.*\)main' "deb http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
-    addRepo '^deb-src http://ppa.launchpad.net/byobu/ppa/ubuntu\(.*\)main' "deb-src http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
+    addRepo '^deb http://ppa.launchpad.net/byobu/ppa/$(lsb_release -si  | tr '[:upper:]' '[:lower:]')\(.*\)main' "deb http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
+    addRepo '^deb-src http://ppa.launchpad.net/byobu/ppa/$(lsb_release -si  | tr '[:upper:]' '[:lower:]')\(.*\)main' "deb-src http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
 fi
 
 apt-get install --assume-yes --force-yes -qq \
@@ -21,7 +20,7 @@ mkdir -p $DEFAULT_USER_PATH/.byobu
 wget -qO- ${REPO_SCRIPT_PATH}/byobu/.tmux.conf > $DEFAULT_USER_PATH/.byobu/.tmux.conf
 
 # Set ownership to the default user
-chown -R $DEFAULT_USER $DEFAULT_USER_PATH/.byobu
+chown -R $DEFAULT_USER:$DEFAULT_USER_GROUP $DEFAULT_USER_PATH/.byobu
 
 byobu-enable
 
