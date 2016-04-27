@@ -5,7 +5,8 @@ echo "Provision script started"
 #######################################
 # HELPER FUNCTIONS
 #######################################
-
+trap "exit 1" TERM
+export PROVISION_PID=$$
 
 # Check wether the specified app exists
 #
@@ -48,18 +49,18 @@ function ensureProvisionRun() {
       else
           whenContinue "${MESSAGE}"
       fi
-      exit 1
+      provisionExit 1
     fi
 }
 
 function ensureAppExists() {
-    which "${1}" > /dev/null && echo "'${1}' was installed" || (echo "'${1}' failed to install" && exit 1)
+    which "${1}" > /dev/null && echo "'${1}' was installed" || (echo "'${1}' failed to install" && provisionExit 1)
 }
 
 function ensureRoot {
     if [[ ! "root" == `whoami` ]]; then
         echo "Please run command as root, example: sudo `basename $0` $*"
-        exit 1;
+        provisionExit 1
     fi
 }
 
@@ -101,7 +102,7 @@ function getNonOptionArguments {
 function getOption {
     if [ -z "${1}" ]; then
         whenRead "Option label is required, hit any key to exit...";
-        exit 1
+        provisionExit 1
     fi
 
     echo "$(getOptionWithValue $1 0 $@)"
@@ -116,7 +117,7 @@ function getOption {
 function getOptionWithValue {
     if [ -z "${1}" ]; then
         whenRead "Option label is required, hit any key to exit...";
-        exit 1
+        provisionExit 1
     fi
 
     OPTION_LABEL=$1
@@ -124,7 +125,7 @@ function getOptionWithValue {
 
     if [ -z "${1}" ]; then
         whenRead "Option default value is required, hit any key to exit...";
-        exit 1
+        provisionExit 1
     fi
 
     OPTION_VALUE=$1
@@ -147,6 +148,11 @@ function getOptionWithValue {
 
 function getRandom {
     echo "$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)"
+}
+
+function provisionExit() {
+  echo "Goodbye"
+  kill -s TERM $PROVISION_PID
 }
 
 function saveAlias() {
@@ -192,7 +198,7 @@ function saveExecutableToBin() {
 function saveTempExecFile {
     if [ -z "${1}" ]; then
         whenRead "Url is required, hit any key to exit...";
-        exit 1
+        provisionExit 1
     fi
 
     TMP_DIRECTORY="/tmp/gy_scripts"
@@ -206,12 +212,12 @@ function saveTempExecFile {
 function saveLocallyFromUrl {
     if [ -z "${1}" ]; then
         whenRead "Url is required, hit any key to exit...";
-        exit 1
+        provisionExit 1
     fi
 
     if [ -z "${2}" ]; then
         whenRead "Target path is required, hit any key to exit...";
-        exit 1
+        provisionExit 1
     fi
 
     if [[ $DEBUG == 1 ]]; then
@@ -226,7 +232,7 @@ function saveLocallyFromUrl {
 function whenRead() {
     if [ -z "${1}" ]; then
         whenRead "Label is required, hit any key to exit...";
-        exit 1
+        provisionExit 1
     fi
 
     read -p "$1"
@@ -272,7 +278,8 @@ function yesNo() {
 
 function updateProvisionScript() {
   if [[ $(which md5sum) == -1 ]]; then
-      echo "md5sum is required, please install before retriyng..."; exit 1
+      echo "md5sum is required, please install before retriyng..."
+      provisionExit 1
   fi
 
   CURRENT_FILE="$1"
@@ -301,6 +308,8 @@ function updateProvisionScript() {
 
       cat "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME" > "$PROVISION_PATH/$PROVISION_BASENAME"
       echo "$PROVISION_PATH/$PROVISION_BASENAME was updated"
+      echo "Re-run the provision script"
+      provisionExit 1
   else
       echo "Provision script is already up to date"
   fi
