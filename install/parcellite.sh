@@ -5,3 +5,5 @@ echo "Install Parcellite - a clipboard manager"
 
 apt-get install --assume-yes --force-yes -qq \
 	parcellite
+
+ensureAppExists "parcellite"

@@ -12,6 +12,8 @@ wget "https://dl.bintray.com/mitchellh/vagrant/$VAGRANT_FILENAME" -O vagrant.deb
 dpkg -i vagrant.deb
 rm -f vagrant.deb
 
+ensureAppExists "vagrant"
+
 # Set ownership to the default user
 mkdir -p $DEFAULT_USER_PATH/.vagrant.d/
 chown -R $DEFAULT_USER:$DEFAULT_USER_GROUP $DEFAULT_USER_PATH/.vagrant.d/

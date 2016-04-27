@@ -9,7 +9,7 @@ else
     FLAG_INTERACTIVE=$(yesNo  "Do you wish to MANUALLY install JetBrains Idea?")
 fi
 
-# Get some usefull scripts for i3 
+# Get some usefull scripts for i3
 saveExecutableToBin ${REPO_SCRIPT_PATH}/bin/reset-keyboard.sh
 
 if [[ $FLAG_INTERACTIVE == 1 ]]; then

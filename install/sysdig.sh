@@ -9,4 +9,6 @@ apt-get -y -qq update
 apt-get install --assume-yes --force-yes -qq \
 	sysdig
 
+ensureAppExists "csysdig" "sysdig"
+
 echo "Start using sysdig using 'csysdig'"

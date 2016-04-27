@@ -7,7 +7,7 @@ if [[ $INTERACTIVE == 0 ]]; then
 else
     FLAG_ADD_REPO=$(yesNo  "Do you wish to add byobu repo to get the latest version?")
 fi
- 
+
 if [[ $FLAG_ADD_REPO == 1 ]]; then
     addRepo '^deb http://ppa.launchpad.net/byobu/ppa/$(lsb_release -si  | tr '[:upper:]' '[:lower:]')\(.*\)main' "deb http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
     addRepo '^deb-src http://ppa.launchpad.net/byobu/ppa/$(lsb_release -si  | tr '[:upper:]' '[:lower:]')\(.*\)main' "deb-src http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
@@ -21,6 +21,8 @@ wget -qO- ${REPO_SCRIPT_PATH}/byobu/.tmux.conf > $DEFAULT_USER_PATH/.byobu/.tmux
 
 # Set ownership to the default user
 chown -R $DEFAULT_USER:$DEFAULT_USER_GROUP $DEFAULT_USER_PATH/.byobu
+
+ensureAppExists "byobu"
 
 byobu-enable
 

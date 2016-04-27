@@ -3,8 +3,19 @@
 echo "Install Python with pip"
 
 apt-get install --assume-yes --force-yes -qq \
-        python python-dev python-pip \
-        python-virtualenv libmysqlclient-dev \
-        libxml2-dev libxslt1-dev libffi-dev
+        build-essential \
+        python \
+        python-dev \
+        python-pip \
+        python-setuptools \
+        python-virtualenv \
+        libmysqlclient-dev \
+        libffi-dev \
+        libssl-dev \
+        libxml2-dev \
+        libxslt1-dev
+
+ensureAppExists "python"
+ensureAppExists "pip" "python"
 
 unset FLAG_INTERACTIVE

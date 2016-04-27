@@ -4,6 +4,9 @@ echo "Install Samba server"
 apt-get install --assume-yes --force-yes -qq \
 	samba cifs-utils
 
+ensureAppExists "samba"
+ensureAppExists "smbpasswd" "samba"
+
 if  [ -f /etc/samba/smb.conf ]; then
     sed --in-place=.orig "s/   usershare allow guests = yes/#  usershare allow guests = yes/" /etc/samba/smb.conf
 fi

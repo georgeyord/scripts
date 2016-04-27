@@ -6,3 +6,6 @@ apt-get install --assume-yes --force-yes -qq \
 
 wget -qO- https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /tmp/google-chrome-stable.deb
 dpkg -i /tmp/google-chrome-stable.deb
+
+ensureAppExists "google-chrome-stable" "chrome"
+

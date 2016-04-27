@@ -22,3 +22,5 @@ else
     apt-get install --assume-yes --force-yes -qq \
         openjdk-7-jre
 fi
+
+ensureAppExists "java"

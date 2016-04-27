@@ -14,6 +14,12 @@ apt-get install --assume-yes --force-yes -qq \
 	mtr \
 	libssl-dev \
 	g++ make \
-	apache-utils \
+	apache2-utils \
 	netcat-openbsd \
 	bash-completion
+
+ensureAppExists "htop" "basic-tools"
+ensureAppExists "vim" "basic-tools"
+ensureAppExists "curl" "basic-tools"
+ensureAppExists "wget" "basic-tools"
+ensureAppExists "netcat" "basic-tools"

@@ -4,6 +4,8 @@ echo "Install and configure Git"
 apt-get install --assume-yes --force-yes -qq \
     git git-core git-gui git-doc
 
+ensureAppExists "git"
+
 su $DEFAULT_USER -c "git config --global alias.addi add --interactive"
 su $DEFAULT_USER -c "git config --global alias.br branch"
 su $DEFAULT_USER -c "git config --global alias.co checkout"

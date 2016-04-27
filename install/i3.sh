@@ -26,6 +26,13 @@ apt-get install --assume-yes --force-yes -qq \
 	rofi \
 	suckless-tools
 
+ensureAppExists "i3"
+ensureAppExists "i3status" "i3"
+ensureAppExists "i3lock" "i3"
+ensureAppExists "apcalc" "i3"
+ensureAppExists "numlockx" "i3"
+ensureAppExists "rofi" "i3"
+
 mkdir -p $DEFAULT_USER_PATH/.i3
 
 wget -qO- ${REPO_SCRIPT_PATH}/i3/config > $DEFAULT_USER_PATH/.i3/config

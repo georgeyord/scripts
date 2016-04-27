@@ -7,4 +7,6 @@ apt-get update -qq
 apt-get install --assume-yes --force-yes -qq \
         sublime-text-installer
 
+ensureAppExists "subl" "sublime"
+
 unset FLAG_INTERACTIVE

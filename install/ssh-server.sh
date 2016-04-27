@@ -4,6 +4,8 @@ echo "Install SSH server"
 apt-get install --assume-yes --force-yes -qq \
 	ssh openssh-server
 
+ensureAppExists "ssh"
+
 if [[ $INTERACTIVE = 0 ]]; then
     FLAG_INTERACTIVE=0
 else

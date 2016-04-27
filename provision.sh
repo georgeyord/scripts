@@ -59,6 +59,29 @@ function echoArguments {
     done
 }
 
+function ensureProvisionRun() {
+    if [ -z "${2}" ]; then
+        SCRIPT=${1}
+    else
+        SCRIPT=${2}
+    fi
+
+    EXISTS=$(appExists "${1}")
+    if [[ $EXISTS == 0 ]]; then
+      MESSAGE="***** '${1}' failed to install: please add '${SCRIPT}' to provision.sh script before this one"
+      if [[ $INTERACTIVE == 0 ]]; then
+          echo "${MESSAGE}"
+      else
+          whenContinue "${MESSAGE}"
+      fi
+      exit 1
+    fi
+}
+
+function ensureAppExists() {
+    which "${1}" > /dev/null && echo "'${1}' installed" || (echo "'${1}' failed to install" && exit 1)
+}
+
 function ensureRoot {
     if [[ ! "root" == `whoami` ]]; then
         echo "Please run command as root, example: sudo `basename $0` $*"

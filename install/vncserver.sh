@@ -6,6 +6,8 @@ apt-get update -y -qq
 apt-get install --assume-yes --force-yes -qq \
 	xfce4 xfce4-goodies tightvncserver
 
+ensureAppExists "tightvncserver"
+
 mkdir -p $DEFAULT_USER_PATH/.vnc
 
 wget -qO- ${REPO_SCRIPT_PATH}/vncserver/xstartup > $DEFAULT_USER_PATH/.vnc/xstartup
