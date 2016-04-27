@@ -1,7 +1,7 @@
 #!/bin/bash
 #  ccze - A robust log colorizer
 
-echo "Install and configure w3m - A terminal browser"
+echo -e "\n*** Install and configure w3m - A terminal browser"
 apt-get install --assume-yes --force-yes -qq \
     w3m w3m-img
 

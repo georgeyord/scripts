@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install and configure Git"
+echo -e "\n*** Install and configure Git"
 apt-get install --assume-yes --force-yes -qq \
     git git-core git-gui git-doc
 
@@ -25,11 +25,12 @@ su $DEFAULT_USER -c "git config --global alias.st status"
 su $DEFAULT_USER -c "git config --global core.editor 'vim'"
 su $DEFAULT_USER -c "git config --global color.branch auto"
 su $DEFAULT_USER -c "git config --global color.diff auto"
-su $DEFAULT_USER -c "git config --global color.interactive=auto"
+# su $DEFAULT_USER -c "git config --global color.interactive=auto"
 su $DEFAULT_USER -c "git config --global color.status auto"
 su $DEFAULT_USER -c "git config --global core.autocrlf input"
 su $DEFAULT_USER -c "git config --global push.default simple"
 
+saveAlias ${REPO_SCRIPT_PATH}/git/bin/git-alias.sh
 saveExecutableToBin ${REPO_SCRIPT_PATH}/git/bin/gitpr.sh gitpr
 
 if [[ $INTERACTIVE == 0 ]]; then

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Python with pip"
+echo -e "\n*** Install Python with pip"
 
 apt-get install --assume-yes --force-yes -qq \
         build-essential \

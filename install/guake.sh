@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Guake"
+echo -e "\n*** Install Guake"
 apt-get install --assume-yes --force-yes -qq \
 				guake
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install BATS, Bash Automated Testing System"
+echo -e "\n*** Install BATS, Bash Automated Testing System"
 
 ensureProvisionRun "git"
 

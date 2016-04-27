@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Google Chrome"
+echo -e "\n*** Install Google Chrome"
 apt-get install --assume-yes --force-yes -qq \
 	libxss1 libappindicator1 libindicator7
 

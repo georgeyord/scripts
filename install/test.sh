@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "TEST OK!"
+echo -e "\n*** TEST OK!"

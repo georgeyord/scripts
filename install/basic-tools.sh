@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install basic tools"
+echo -e "\n*** Install basic tools"
 apt-get install --assume-yes --force-yes -qq \
 	build-essential \
 	software-properties-common \

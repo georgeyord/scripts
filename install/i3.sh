@@ -16,7 +16,7 @@
 # 	  read more: http://tools.suckless.org/
 #
 
-echo "Install and configure i3 and additional helper apps, a tiling window manager"
+echo -e "\n*** Install and configure i3 and additional helper apps, a tiling window manager"
 
 apt-get update -y -qq
 apt-get install --assume-yes --force-yes -qq \

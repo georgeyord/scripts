@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Skype"
+echo -e "\n*** Install Skype"
 
 apt-get install --assume-yes --force-yes -qq \
         skype

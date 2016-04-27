@@ -1,6 +1,8 @@
 #!/bin/bash
 
-echo "Install locally the basic executables files needed"
+echo -e "\n*** Install locally the basic executables files needed"
+
+saveAlias ${REPO_SCRIPT_PATH}/bin/bash-alias.sh
 
 saveExecutableToBin ${REPO_SCRIPT_PATH}/bin/bgrun.sh bgrun
 saveExecutableToBin ${REPO_SCRIPT_PATH}/bin/ip-addresses.sh ip-addresses

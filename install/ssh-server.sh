@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install SSH server"
+echo -e "\n*** Install SSH server"
 apt-get install --assume-yes --force-yes -qq \
 	ssh openssh-server
 

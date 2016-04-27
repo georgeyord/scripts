@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install and configure VirtualBox"
+echo -e "\n*** Install and configure VirtualBox"
 
 function addRepo() {
     if ! grep -q "$1" /etc/apt/sources.list; then

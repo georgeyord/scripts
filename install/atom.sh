@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "Install Atom"
+echo -e "\n*** Install Atom"
 
-wget https://atom.io/download/deb -O /tmp/atom.deb
+saveLocallyFromUrl https://atom.io/download/deb /tmp/atom.deb
 dpkg -i /tmp/atom.deb
 ensureAppExists "atom"
 

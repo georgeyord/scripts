@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Java"
+echo -e "\n*** Install Java"
 apt-get install --assume-yes --force-yes -qq \
     python-software-properties
 

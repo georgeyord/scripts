@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Docker"
+echo -e "\n*** Install Docker"
 
 DOCKER_COMPOSE_VERSION=1.6.2
 DOCKER_MACHINE_VERSION=v0.6.0
@@ -63,6 +63,6 @@ saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-containers.sh dock
 saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-images.sh docker-cleanup-images
 saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-volumes.sh docker-cleanup-volumes
 saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-api.sh docker-api
-# saveTo ${REPO_SCRIPT_PATH}/docker/docker-profile.sh /etc/profile.d/docker-profile.sh
+saveAlias ${REPO_SCRIPT_PATH}/docker/docker-alias.sh
 
 unset FLAG_INTERACTIVE

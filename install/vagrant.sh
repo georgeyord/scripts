@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install and configure Vagrant
-echo "Install and configure Vagrant"
+echo -e "\n*** Install and configure Vagrant"
 
 echo "Get the latest from: https://www.vagrantup.com/downloads.html"
 

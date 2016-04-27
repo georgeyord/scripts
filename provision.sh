@@ -23,32 +23,6 @@ function addRepo() {
     fi
 }
 
-function saveExecutableToBin() {
-    if [ -z "${1}" ]; then
-        echo "Executable file was not specified, ignoring..."
-        sleep 2
-    fi
-
-    if [ -z "${2}" ]; then
-        FILENAME=$(getFilenameFromUrl ${1})
-    else
-        FILENAME=${2}
-    fi
-
-    TARGET_PATH=$DEFAULT_BIN_PATH/$FILENAME
-    if [ -f "${TARGET_PATH}" ]; then
-        echo "Deleting existing file '${TARGET_PATH}'"
-        rm -f "${TARGET_PATH}"
-    fi
-
-    echo "Downloading file from: ${1}"
-    echo "to: ${TARGET_PATH}"
-    wget -q -O "${TARGET_PATH}" $1
-
-    echo "Make file '${TARGET_PATH}' executable"
-    chmod +x "${TARGET_PATH}"
-}
-
 function echoArguments {
     # Store arguments in a temp array
     FN_ARGS=("$@")
@@ -79,7 +53,7 @@ function ensureProvisionRun() {
 }
 
 function ensureAppExists() {
-    which "${1}" > /dev/null && echo "'${1}' installed" || (echo "'${1}' failed to install" && exit 1)
+    which "${1}" > /dev/null && echo "'${1}' was installed" || (echo "'${1}' failed to install" && exit 1)
 }
 
 function ensureRoot {
@@ -175,6 +149,46 @@ function getRandom {
     echo "$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)"
 }
 
+function saveAlias() {
+    ALIAS_FILE="${DEFAULT_USER_PATH}/.bash_aliases"
+    ALIAS_FOLDER="${DEFAULT_USER_PATH}/.alias"
+
+    touch "${ALIAS_FILE}"
+    mkdir -p "${ALIAS_FOLDER}"
+
+    if [ -z "${2}" ]; then
+        FILENAME=$(getFilenameFromUrl ${1})
+    else
+        FILENAME=${2}
+    fi
+
+    cat "${ALIAS_FILE}" | grep "${FILENAME}" > /dev/null
+    if [[ $? -ne 0 ]] ; then
+      echo "Add '${FILENAME}' to ${ALIAS_FILE}"
+      ALIAS="if [ -f ~/.bash_aliases ]; then . ${ALIAS_FOLDER}/${FILENAME}; fi"
+      echo "${ALIAS}" >> "${ALIAS_FILE}"
+    fi
+
+    saveLocallyFromUrl "${1}" ${ALIAS_FOLDER}/${FILENAME}
+}
+
+function saveExecutableToBin() {
+    if [ -z "${1}" ]; then
+        echo "Executable file was not specified, ignoring..."
+        sleep 2
+    fi
+
+    if [ -z "${2}" ]; then
+        FILENAME=$(getFilenameFromUrl ${1})
+    else
+        FILENAME=${2}
+    fi
+
+    TARGET_PATH=$DEFAULT_BIN_PATH/$FILENAME
+    saveLocallyFromUrl "$1" "${TARGET_PATH}"
+    chmod +x "${TARGET_PATH}"
+}
+
 function saveTempExecFile {
     if [ -z "${1}" ]; then
         whenRead "Url is required, hit any key to exit...";
@@ -183,12 +197,30 @@ function saveTempExecFile {
 
     TMP_DIRECTORY="/tmp/gy_scripts"
     TMP_FILENAME="$TMP_DIRECTORY/scr_$(getRandom).sh"
-    if [ ! -d "$TMP_DIRECTORY" ]; then
-      mkdir $TMP_DIRECTORY
+    saveLocallyFromUrl "${1}" "${TMP_FILENAME}"
+
+    chmod a+x "${TMP_FILENAME}"
+    echo "${TMP_FILENAME}"
+}
+
+function saveLocallyFromUrl {
+    if [ -z "${1}" ]; then
+        whenRead "Url is required, hit any key to exit...";
+        exit 1
     fi
-    wget -qO- "$1" > "$TMP_FILENAME"
-    chmod a+x "$TMP_FILENAME"
-    echo $TMP_FILENAME
+
+    if [ -z "${2}" ]; then
+        whenRead "Target path is required, hit any key to exit...";
+        exit 1
+    fi
+
+    if [[ $DEBUG == 1 ]]; then
+      >&2 echo -e "Downloading file\n - from: ${1}\n - to: ${2}"
+    fi
+
+    mkdir -p $(dirname "${2}")
+    rm -f "${2}"
+    wget -qO "${2}" "${1}"
 }
 
 function whenRead() {
@@ -247,20 +279,33 @@ function updateProvisionScript() {
   PROVISION_PATH="`dirname \"$CURRENT_FILE\"`"
   PROVISION_BASENAME="`basename \"$CURRENT_FILE\"`"
   PROVISION_CKSUM="`md5sum \"$PROVISION_PATH/$PROVISION_BASENAME\" | awk '{print $1}'`"
-  # echo "$PROVISION_PATH/$PROVISION_BASENAME - $PROVISION_CKSUM"
 
   REPO_BASE_PATH="$2"
-  TMP_PROVISION_PATH="/tmp"
-  TMP_PROVISION_BASENAME="provision.sh"
+
+  TMP_PROVISION_PATH="/tmp/gy_scripts"
+  TMP_PROVISION_BASENAME="provision_$(getRandom).sh"
   TMP_PROVISION_REMOTE="$REPO_BASE_PATH/provision.sh"
-  wget -qO- "$TMP_PROVISION_REMOTE" > "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME"
+  saveLocallyFromUrl "$TMP_PROVISION_REMOTE" "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME"
   TMP_PROVISION_CKSUM="`md5sum \"$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME\" | awk '{print $1}'`"
-  # echo "$TMP_PROVISION_REMOTE - $TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME - $TMP_PROVISION_CKSUM"
+  if [[ $DEBUG == 1 ]]; then
+    echo "PROVISION SCRIPT: $PROVISION_PATH/$PROVISION_BASENAME - $PROVISION_CKSUM"
+    echo "TMP_PROVISION SCRIPT:$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME - $TMP_PROVISION_CKSUM"
+  fi
 
   if [[ ! "$PROVISION_CKSUM" == "$TMP_PROVISION_CKSUM" ]] && [[ $(yesNo  "Update provision script to new version?") == 1 ]]; then
+      if [[ $DEBUG == 1 ]]; then
+        echo -e "\n\n Check the diff:\n"
+        diff $CURRENT_FILE "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME"
+        echo -e "\n"
+      fi
+
       cat "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME" > "$PROVISION_PATH/$PROVISION_BASENAME"
       echo "$PROVISION_PATH/$PROVISION_BASENAME was updated"
+  else
+      echo "Provision script is already up to date"
   fi
+
+  rm -f "$TMP_PROVISION_PATH/$TMP_PROVISION_BASENAME"
 }
 
 #######################################
@@ -321,6 +366,7 @@ if [[ $DEBUG == 1 ]]; then
     echo "REPO_SCRIPT_PATH: $REPO_SCRIPT_PATH"
     echo "SCRIPTS_COUNT: $SCRIPTS_COUNT"
     echo "SCRIPTS: ${SCRIPTS[@]}"
+    # set -x
     # exit 1;
 fi
 
@@ -336,15 +382,11 @@ fi
 for (( i=0;i<$SCRIPTS_COUNT;i++)); do
     if [[ $REMOTE == 1 ]]; then
         FILENAME="$(saveTempExecFile $REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh)"
-        if [[ $DEBUG == 1 ]]; then
-          echo "REMOTE FILENAME: $REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh)"
-          echo "TEMP FILENAME: ${FILENAME}"
-        fi
         IS_FILENAME_TMP=1
     else
         FILENAME=$REPO_INSTALL_PATH/${SCRIPTS[${i}]}.sh
         if [[ $DEBUG == 1 ]]; then
-          echo "LOCAL FILENAME: ${FILENAME}"
+          echo -e "\nLOCAL FILENAME: ${FILENAME}"
         fi
         IS_FILENAME_TMP=0
     fi

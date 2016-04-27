@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install and configure vncserver to gain remote access to the graphical interface of the machine"
+echo -e "\n*** Install and configure vncserver to gain remote access to the graphical interface of the machine"
 
 apt-get update -y -qq
 apt-get install --assume-yes --force-yes -qq \

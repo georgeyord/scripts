@@ -7,7 +7,7 @@
 # Usage: key-mon
 #
 
-echo "Install and configure Key-mon - Keyboard Status Monitor for presentations"
+echo -e "\n*** Install and configure Key-mon - Keyboard Status Monitor for presentations"
 wget -qO- https://key-mon.googlecode.com/files/keymon_1.17-1_all.deb > /tmp/keymon_1.17-1_all.deb
 dpkg -i /tmp/keymon_1.17-1_all.deb
 

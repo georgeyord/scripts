@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install GitPrompt"
+echo -e "\n*** Install GitPrompt"
 echo "More details here: https://github.com/magicmonty/bash-git-prompt"
 
 git clone https://github.com/magicmonty/bash-git-prompt.git $DEFAULT_USER_PATH/.bash-git-prompt

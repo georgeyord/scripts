@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Clean up
-echo "Clean up"
+echo -e "\n*** Clean up"
 
 if [[ $INTERACTIVE == 0 ]]; then
     FLAG_INTERACTIVE=0

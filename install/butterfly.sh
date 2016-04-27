@@ -1,7 +1,7 @@
 #!/bin/bash
 # Learm more about this amazing tools here: https://github.com/krishnasrinivas/wetty
 
-echo "Install and configure Butterfly Web TTY"
+echo -e "\n*** Install and configure Butterfly Web TTY"
 
 ensureProvisionRun "python"
 

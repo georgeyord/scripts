@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Samba server"
+echo -e "\n*** Install Samba server"
 apt-get install --assume-yes --force-yes -qq \
 	samba cifs-utils
 

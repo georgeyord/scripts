@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Meld"
+echo -e "\n*** Install Meld"
 apt-get install --assume-yes --force-yes -qq \
 	meld
 

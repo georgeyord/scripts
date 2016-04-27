@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Install PhpStorm
-echo "Install PhpStorm"
-echo "MANUAL INSTALLATION REQUIRED"
+echo -e "\n*** Install PhpStorm"
+ensureProvisionRun "java"
 
+echo "MANUAL INSTALLATION REQUIRED"
 if [[ $INTERACTIVE == 0 ]]; then
     FLAG_INTERACTIVE=0
 else

@@ -1,13 +1,5 @@
 #!/bin/bash
-
-function addRepo() {
-    if ! grep -q "$1" /etc/apt/sources.list; then
-        echo "Adding new apt source '$2'"
-        echo $2 >> /etc/apt/sources.list
-    fi
-}
-
-echo "Install Dropbox"
+echo -e "\n*** Install Dropbox"
 DROPBOX_VERSION='2015.10.28_amd64'
 
 wget https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_${DROPBOX_VERSION}.deb -O /tmp/dropbox.deb

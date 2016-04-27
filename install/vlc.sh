@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install VLC"
+echo -e "\n*** Install VLC"
 apt-get install --assume-yes --force-yes -qq \
         vlc
 

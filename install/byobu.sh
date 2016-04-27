@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Byobu"
+echo -e "\n*** Install Byobu"
 
 if [[ $INTERACTIVE == 0 ]]; then
     FLAG_ADD_REPO=0

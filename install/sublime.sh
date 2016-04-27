@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Install Sublime 3"
+echo -e "\n*** Install Sublime 3"
 add-apt-repository -y ppa:webupd8team/sublime-text-3
 apt-get update -qq
 

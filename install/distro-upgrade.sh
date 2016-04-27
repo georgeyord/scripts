@@ -8,7 +8,7 @@ fi
 
 if [[ $FLAG_INTERACTIVE == 1 ]]; then
     # Update/upgrade distro
-    echo "Update/upgrade apps and distro"
+    echo -e "\n*** Update/upgrade apps and distro"
 
     # Fix "stdin is not a tty" in ubutnu
     sed -i 's/^mesg n$/tty -s \&\& mesg n/g' /root/.profile
