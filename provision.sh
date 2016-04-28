@@ -57,6 +57,10 @@ function ensureAppExists() {
     which "${1}" > /dev/null && echo "'${1}' was installed" || (echo "'${1}' failed to install" && provisionExit 1)
 }
 
+function ensureServiceExists() {
+    service --status-all | grep $1 > /dev/null && echo "'${1}' exists" || (echo "'${1}' is not defined" && provisionExit 1)
+}
+
 function ensureRoot {
     if [[ ! "root" == `whoami` ]]; then
         echo "Please run command as root, example: sudo `basename $0` $*"
