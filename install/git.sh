@@ -31,6 +31,7 @@ su $DEFAULT_USER -c "git config --global core.autocrlf input"
 su $DEFAULT_USER -c "git config --global push.default simple"
 
 saveAlias ${REPO_SCRIPT_PATH}/git/bin/git-alias.sh
+saveExecutableToBin ${REPO_SCRIPT_PATH}/git/bin/git-backup-ignored.sh git-backup-ignored
 saveExecutableToBin ${REPO_SCRIPT_PATH}/git/bin/gitpr.sh gitpr
 
 if [[ $INTERACTIVE == 0 ]]; then

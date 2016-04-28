@@ -2,7 +2,9 @@
 # USAGE: term-title.sh [TITLE]
 # EXAMPLE: term-title.sh "title"
 
-if [ -z "$1" ]; then
+if [[ "$1" == "-b" ]]; then
+	TITLE=`basename $(pwd)`
+elif [ -z "$1" ]; then
   TITLE=`pwd`
 else
   TITLE="${1}"
