@@ -355,8 +355,9 @@ fi
 # Find the default user (uid 1000) to use it when a folder needs
 # its permissions fixed.
 DEFAULT_USER=$(id -un)
+DEFAULT_USER_ID=$(id -g)
 DEFAULT_USER_GROUP=$(id -gn)
-DEFAULT_USER_PATH=$(awk -v val=1000 -F ":" '$3==val{print $6}' /etc/passwd)
+DEFAULT_USER_PATH=$(awk -v val=${DEFAULT_USER_ID} -F ":" '$3==val{print $6}' /etc/passwd)
 DEFAULT_BIN_PATH=/usr/local/bin
 REPO_INSTALL_PATH="${REPO_BASE_PATH}/install"
 REPO_SCRIPT_PATH="${REPO_BASE_PATH}/files"
@@ -373,7 +374,10 @@ if [[ $DEBUG == 1 ]]; then
     echo "REMOTE: $REMOTE"
     echo "NON OPTION ARGS: $(getNonOptionArguments $@)"
     echo "INTERACTIVE: $INTERACTIVE"
+    echo "DEFAULT_USER_ID: $DEFAULT_USER_ID"
     echo "DEFAULT_USER: $DEFAULT_USER"
+    echo "DEFAULT_USER_GROUP: $DEFAULT_USER_GROUP"
+    echo "DEFAULT_USER_PATH: $DEFAULT_USER_PATH"
     echo "REPO_BASE_PATH: $REPO_BASE_PATH"
     echo "REPO_INSTALL_PATH: $REPO_INSTALL_PATH"
     echo "REPO_SCRIPT_PATH: $REPO_SCRIPT_PATH"

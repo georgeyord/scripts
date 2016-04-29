@@ -30,9 +30,7 @@ function readYesNo() {
 if [[ "$1" == "-d" ]]; then
   DRY=1
 	shift
-fi
-
-if [[ "$1" == "-f" ]]; then
+elif [[ "$1" == "-f" ]]; then
   FORCE=1
 	shift
 else
@@ -40,7 +38,7 @@ else
   FORCE=0
 fi
 
-if [ -z "$1" ]; then
+if [ -z "$DRY" ] && [ -z "$1" ]; then
     echo "Set target folder"; exit 1
 fi
 
@@ -56,7 +54,7 @@ for SOURCE_PATH in "${SOURCE_PATHS[@]}"; do
   SOURCE_BASENAME="$(basename ${SOURCE_PATH})"
 
   echo -e "From: ${SOURCE_ABSOLUTE_ROOT_PATH}/${SOURCE_PATH}\nTo:   ${TARGET_FOLDER}/${SOURCE_DIRNAME}/${SOURCE_BASENAME}"
-  if [[ $DRY == "1" ]]; then
+  if [ -z "$DRY" ]; then
     if [[ $FORCE == "1" ]] || [[ $(readYesNo "Copy?") == 1 ]]; then
       # echo "copy"
       mkdir -p "${TARGET_FOLDER}/${SOURCE_DIRNAME}" && \
