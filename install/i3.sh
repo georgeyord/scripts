@@ -50,13 +50,21 @@ wget -qO- ${REPO_SCRIPT_PATH}/i3/workspaces/com.json > $DEFAULT_USER_PATH/.i3/wo
 
 # Get some usefull scripts for i3
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/i3_switch_workspace.sh i3_switch_workspace
+ensureAppExists i3_switch_workspace
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/i3exec.sh i3exec
+ensureAppExists i3exec
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/netspeed.sh netspeed
+ensureAppExists netspeed
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/xrand-dp0-dp1.sh xrand-dp0-dp1
+ensureAppExists xrand-dp0-dp1
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/xrand-dp0.sh xrand-dp0
+ensureAppExists xrand-dp0
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/xrand-laptop-dp0.sh xrand-laptop-dp0
+ensureAppExists xrand-laptop-dp0
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/xrand-laptop-vga.sh xrand-laptop-vga
+ensureAppExists xrand-laptop-vga
 saveExecutableToBin ${REPO_SCRIPT_PATH}/i3/bin/xrand-laptop.sh xrand-laptop
+ensureAppExists xrand-laptop
 
 ln -s /usr/bin/i3lock $DEFAULT_BIN_PATH/lock
 

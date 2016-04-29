@@ -60,9 +60,14 @@ if [[ $INTERACTIVE == 1 ]] && [[ $(yesNo  "Do you wish to setup Docker access to
 fi
 
 saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-containers.sh docker-cleanup-containers
+ensureAppExists docker-cleanup-containers
 saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-images.sh docker-cleanup-images
+ensureAppExists docker-cleanup-images
 saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-cleanup-volumes.sh docker-cleanup-volumes
+ensureAppExists docker-cleanup-volumes
 saveExecutableToBin ${REPO_SCRIPT_PATH}/docker/docker-api.sh docker-api
+ensureAppExists docker-api
+
 saveAlias ${REPO_SCRIPT_PATH}/docker/docker-alias.sh
 
 unset FLAG_INTERACTIVE
