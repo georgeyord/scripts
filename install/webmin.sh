@@ -15,7 +15,7 @@ locale-gen C.UTF-8 > /dev/null
 
 apt-get -y -qq update && \
 apt-get install --assume-yes --force-yes -qq \
-  webmin bind9 fail2ban syslog-ng at mon quota webalizer
+  webmin bind9 fail2ban syslog-ng-core syslog-ng at mon quota webalizer
 
 ensureServiceExists 'webmin'
 ensureServiceExists 'bind9'
