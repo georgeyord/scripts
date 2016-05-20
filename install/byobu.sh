@@ -9,8 +9,9 @@ else
 fi
 
 if [[ $FLAG_ADD_REPO == 1 ]]; then
-    addRepo '^deb http://ppa.launchpad.net/byobu/ppa/$(lsb_release -si  | tr '[:upper:]' '[:lower:]')\(.*\)main' "deb http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
-    addRepo '^deb-src http://ppa.launchpad.net/byobu/ppa/$(lsb_release -si  | tr '[:upper:]' '[:lower:]')\(.*\)main' "deb-src http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
+    RELEASE=$(lsb_release -si  | tr '[:upper:]' '[:lower:]')
+    addRepo '^deb http://ppa.launchpad.net/byobu/ppa/${RELEASE}\(.*\)main' "deb http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
+    addRepo '^deb-src http://ppa.launchpad.net/byobu/ppa/${RELEASE}\(.*\)main' "deb-src http://ppa.launchpad.net/byobu/ppa/ubuntu $(lsb_release -sc) main"
 fi
 
 apt-get install --assume-yes --force-yes -qq \
