@@ -7,7 +7,7 @@ if [[ $(swapon -s | wc -l) == 1 ]]; then
 
   if [[ $INTERACTIVE == 1 ]]; then
     read -p "Set the swapfile size in Gigabytes [1-8]: " SWAP_SIZE
-    if ! [[ $SWAP_SIZE =~ $REGEX_IS_NUMBER ]] || [ "$SWAP_SIZE" -lt "8" ] ; then
+    if ! [[ $SWAP_SIZE =~ $REGEX_IS_NUMBER ]] || [ "$SWAP_SIZE" -gt "8" ] ; then
        echo "Swap size set is not a number or is greater than 8 Gigabytes, exiting..." >&2; exit 1
     fi
     SWAP_SIZE="${SWAP_SIZE}G"
