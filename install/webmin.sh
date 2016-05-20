@@ -11,7 +11,8 @@ addRepo '^deb http://webmin.mirror.somersettechsolutions.co.uk/repository' "deb 
 
 apt-get install --assume-yes --force-yes -qq \
   locales && \
-locale-gen C.UTF-8 > /dev/null && \
+locale-gen C.UTF-8 > /dev/null
+
 apt-get -y -qq update && \
 apt-get install --assume-yes --force-yes -qq \
   webmin bind9 fail2ban syslog-ng at mon quota webalizer
