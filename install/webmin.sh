@@ -17,10 +17,10 @@ apt-get -y -qq update && \
 apt-get install --assume-yes --force-yes -qq \
   webmin bind9 fail2ban syslog-ng-core syslog-ng at mon quota webalizer
 
-ensureServiceExists 'webmin'
-ensureServiceExists 'bind9'
-ensureServiceExists 'fail2ban'
-ensureServiceExists 'syslog-ng'
+#ensureServiceExists 'webmin'
+#ensureServiceExists 'bind9'
+#ensureServiceExists 'fail2ban'
+#ensureServiceExists 'syslog-ng'
 ensureAppExists 'at'
 ensureAppExists 'mon'
 ensureAppExists 'quota'
