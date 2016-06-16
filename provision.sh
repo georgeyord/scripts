@@ -175,8 +175,10 @@ function saveAlias() {
     cat "${ALIAS_FILE}" | grep "${FILENAME}" > /dev/null
     if [[ $? -ne 0 ]] ; then
       echo "Add '${FILENAME}' to ${ALIAS_FILE}"
-      ALIAS="if [ -f ~/.bash_aliases ]; then . ${ALIAS_FOLDER}/${FILENAME}; fi"
+      ALIAS="if [ -f ${ALIAS_FOLDER}/${FILENAME} ]; then . ${ALIAS_FOLDER}/${FILENAME}; fi"
       echo "${ALIAS}" >> "${ALIAS_FILE}"
+      . ${ALIAS_FOLDER}/${FILENAME}
+      echo "Reboot to make it available to all terminals"
     fi
 
     saveLocallyFromUrl "${1}" ${ALIAS_FOLDER}/${FILENAME}

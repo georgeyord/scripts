@@ -21,7 +21,7 @@ su $DEFAULT_USER -c "git config --global alias.la \"log --format=fuller\""
 # List of commits in oneline with date, description and user
 su $DEFAULT_USER -c "git config --global alias.ls \"log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short\""
 su $DEFAULT_USER -c "git config --global alias.pr 'pull --rebase'"
-su $DEFAULT_USER -c "git config --global alias.st status"
+su $DEFAULT_USER -c "git config --global alias.st status -sb"
 su $DEFAULT_USER -c "git config --global core.editor 'vim'"
 su $DEFAULT_USER -c "git config --global color.branch auto"
 su $DEFAULT_USER -c "git config --global color.diff auto"
