@@ -12,6 +12,8 @@ apm install atom-beautify
 # apm install autocomplete-plus
 # Bundled with Atom
 # apm install autocomplete-snippets
+# Compares two files and show the diff
+apm install compare-files
 # Assign file extension icons and colours for improved visual grepping
 apm install file-icons
 # Quickly and easily share your code on gist.github.com
