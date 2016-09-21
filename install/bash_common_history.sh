@@ -5,11 +5,11 @@ echo "More details here: http://unix.stackexchange.com/questions/1288/preserve-b
 
 BASHRC_PATH="$DEFAULT_USER_PATH/.bashrc"
 
+echo "Changes will be made if needed in ${BASHRC_PATH}"
 cat "${BASHRC_PATH}" | grep "PRESERVE COMMON BASH HISTORY" > /dev/null
 if [[ $? -eq 0 ]] ; then
     echo "COMMON BASH HISTORY already included in '$BASHRC_PATH'"
 else
-  echo "Changes will be made in ${BASHRC_PATH}"
   echo -e '
 
 ### PRESERVE COMMON BASH HISTORY AMONG ALL TERMINAL WINDOWS

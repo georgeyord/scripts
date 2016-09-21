@@ -9,6 +9,7 @@ dpkg -i /tmp/vscode.deb
 ensureAppExists "code"
 
 npm install -g typings
+ensureAppExists "typings"
 
 code --install-extension DotJoshJohnson.xml
 code --install-extension HookyQR.beautify
