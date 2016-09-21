@@ -5,10 +5,11 @@ echo "More details here: http://unix.stackexchange.com/questions/1288/preserve-b
 
 BASHRC_PATH="$DEFAULT_USER_PATH/.bashrc"
 
-cat "${BASHRC_PATH}" | grep "PRESERVE BASH HISTORY" > /dev/null
+cat "${BASHRC_PATH}" | grep "PRESERVE COMMON BASH HISTORY" > /dev/null
 if [[ $? -eq 0 ]] ; then
     echo "COMMON BASH HISTORY already included in '$BASHRC_PATH'"
 else
+  echo "Changes will be made in ${BASHRC_PATH}"
   echo -e '
 
 ### PRESERVE COMMON BASH HISTORY AMONG ALL TERMINAL WINDOWS
@@ -19,4 +20,5 @@ shopt -s histappend                           # append to history, dont overwrit
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 ' >> "${BASHRC_PATH}"
+  echo "Done, will be activated in any new terminal."
 fi
