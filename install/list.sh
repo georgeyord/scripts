@@ -44,6 +44,7 @@ swap
 sysdig
 test
 text-to-speech
+tldr
 vagrant
 virtualbox
 vlc
