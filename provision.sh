@@ -356,10 +356,10 @@ fi
 
 # Find the default user (uid 1000) to use it when a folder needs
 # its permissions fixed.
-DEFAULT_USER=$(id -un)
-DEFAULT_USER_ID=$(id -g)
-DEFAULT_USER_GROUP=$(id -gn)
-DEFAULT_USER_PATH=$(awk -v val=${DEFAULT_USER_ID} -F ":" '$3==val{print $6}' /etc/passwd)
+DEFAULT_USER=$(cat /etc/passwd | grep ${HOME} | awk -F ':' '{print $1}')
+DEFAULT_USER_ID=$(cat /etc/passwd | grep ${HOME} | awk -F ':' '{print $3}')
+DEFAULT_USER_GROUP=$(cat /etc/passwd | grep ${HOME} | awk -F ':' '{print $4}')
+DEFAULT_USER_PATH="${HOME}"
 DEFAULT_BIN_PATH=/usr/local/bin
 REPO_INSTALL_PATH="${REPO_BASE_PATH}/install"
 REPO_SCRIPT_PATH="${REPO_BASE_PATH}/files"
