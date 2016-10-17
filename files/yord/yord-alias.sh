@@ -3,6 +3,7 @@
 export EDITOR=atom
 
 alias e='sensible-editor'
+alias regui='sudo service restart lightdm'
 
 alias 24='cd /opt/codebase/tripsta/app && which term-title && term-title 24'
 alias frontline='cd /opt/codebase/tripsta/frontline && which term-title && term-title fl'
