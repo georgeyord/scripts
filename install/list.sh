@@ -5,6 +5,7 @@ echo -e "\n*** List of all available intallations:"
 #  ls -l ./install/ | awk '{print $9}' | awk -F '.' '{print $1}
 echo -e "apt-cleanup
 apt-upgrade
+asciinema
 atom
 bash_common_history
 basic-tools

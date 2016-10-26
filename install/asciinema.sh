@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n*** Install basic tools"
+echo -e "\n*** Install asciinema - record and share a terminal session"
 apt-get install --assume-yes --force-yes -qq \
   asciinema
 
