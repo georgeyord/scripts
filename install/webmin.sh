@@ -7,7 +7,6 @@ ensureProvisionRun 'wget' 'basic-tools'
 saveLocallyFromUrl http://www.webmin.com/jcameron-key.asc /tmp/jcameron-key.asc && \
 	apt-key add /tmp/jcameron-key.asc > /dev/null
 addRepo '^deb http://download.webmin.com/download/repository' "deb http://download.webmin.com/download/repository sarge contrib"
-addRepo '^deb http://webmin.mirror.somersettechsolutions.co.uk/repository' "deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib"
 
 apt-get install --assume-yes --force-yes -qq \
   locales && \
