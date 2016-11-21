@@ -7,3 +7,5 @@ ensureAppExists "docker"
 saveAlias ${REPO_SCRIPT_PATH}/docker-bin/docker-bin-alias.sh
 
 ensureAppExists "docker-bin-test"
+ensureAppExists "docker-server-static"
+ensureAppExists "htpasswd"
