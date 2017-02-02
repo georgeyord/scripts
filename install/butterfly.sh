@@ -4,6 +4,7 @@
 echo -e "\n*** Install and configure Butterfly Web TTY"
 
 ensureProvisionRun "python"
+ensureProvisionRun "pip"
 
 pip install butterfly
 # If you want to use themes

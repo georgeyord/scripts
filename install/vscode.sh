@@ -50,3 +50,5 @@ fi
 
 # typings install dt~backbone --global
 # typings install lodash --save
+
+echo -e "\n*** Sync your settings using Gist ID: e6fda3aec289c0ab3f0c4a174cacae51\nRead more here: https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync"
