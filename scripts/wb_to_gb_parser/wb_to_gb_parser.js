@@ -7,8 +7,7 @@ const commandLineArgs = require('command-line-args')
 const optionDefinitions = [{
     name: 'file',
     alias: 'f',
-    type: String,
-    defaultOption: true
+    type: String
   },
   {
     name: 'out',
@@ -19,13 +18,15 @@ const optionDefinitions = [{
 const options = commandLineArgs(optionDefinitions)
 
 if (!options.file) {
-  console.log("A CSV file path is required.")
+  console.log("The source CSV file is required.")
+  console.log("example: ./run.sh -f /tmp/input.csv -o /tmp/output.csv")
   process.exit(1)
 }
 const inputFilepath = options.file;
 
 if (!options.out) {
-  console.log("The target CSV file path is required.")
+  console.log("The target CSV file is required.")
+  console.log("example: ./run.sh -f /tmp/input.csv -o /tmp/output.csv")
   process.exit(1)
 }
 const outputFilepath = options.out;
