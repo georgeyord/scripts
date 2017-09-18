@@ -24,34 +24,43 @@ FILES_TO_MONITOR=('/var/log')
 function addToFindingsIfNeeded() {
     FILE="${1}"
     OLD_SIZE="${2}"
-    OLD_TIMESTAMP="${3}"
-    SIZE="${4}"
-    DIFFERENCE=$(calculateDifference "${SIZE}" "${OLD_SIZE}")
+    NEW_SIZE="${3}"
+    OLD_TIMESTAMP="${4}"
+    DIFFERENCE=$(calculateDifference "${OLD_SIZE}" "${NEW_SIZE}")
+    PERCENTAGE=$(calculatePercentage "${OLD_SIZE}" "${NEW_SIZE}")
     HUMAN_DIFFERENCE=$(formatSize "${DIFFERENCE}")
 
-    shouldNotifyForSizeChange "${OLD_SIZE}" "${SIZE}" "${DIFFERENCE}"
+    shouldNotifyForSizeChange "${OLD_SIZE}" "${NEW_SIZE}" "${DIFFERENCE}"
     RESULT=$?
 
     if [ "${RESULT}" -ne 0 ]; then
-      FINDINGS+="${HUMAN_DIFFERENCE} size change for ${FILE}"$'\n'
+      FINDINGS+="${HUMAN_DIFFERENCE} size change (${PERCENTAGE}%) for ${FILE}"$'\n'
     fi
 
     if [ -z "${TEST_MODE}" ]; then
-      printSummary "${FILE}" "${HUMAN_DIFFERENCE}" "${OLD_SIZE}" "${SIZE}"
+      printSummary "${FILE}" "${DIFFERENCE}" "${PERCENTAGE}" "${OLD_SIZE}" "${NEW_SIZE}"
     fi
 }
 
 function buildRecord() {
   FILEPATH="${1}"
-  SIZE="${2}"
-  echo "${FILEPATH}${FILE_DELIMITER}${SIZE}${FILE_DELIMITER}${TIMESTAMP}"
+  NEW_SIZE="${2}"
+  echo "${FILEPATH}${FILE_DELIMITER}${NEW_SIZE}${FILE_DELIMITER}${TIMESTAMP}"
 }
 
 function calculateDifference() {
-  OLD="${1}"
-  CURRENT="${2}"
+  OLD_SIZE="${1}"
+  NEW_SIZE="${2}"
 
-  echo "$((OLD-CURRENT))"
+  echo "$((OLD_SIZE-NEW_SIZE))"
+}
+
+function calculatePercentage() {
+  NEW_SIZE="${1}"
+  OLD_SIZE="${2}"
+  PERCENTAGE=$(awk "BEGIN { pc=100*${NEW_SIZE}/${OLD_SIZE}; i=int(pc); print (pc-i<0.5)?i:i+1 }")
+
+  echo "${PERCENTAGE}"
 }
 
 function createRecord() {
@@ -119,20 +128,21 @@ function notifyForSizeChangeIfNeeded() {
 }
 
 function printSummary() {
+  # echo "${@}"
   FILE="${1}"
-  HUMAN_DIFFERENCE="${2}"
-  OLD_TIMESTAMP="${3}"
-  SIZE="${4}"
+  DIFFERENCE="${2}"
+  PERCENTAGE="${3}"
+  OLD_SIZE="${4}"
+  NEW_SIZE="${5}"
 
-  echo "FILE: ${FILE}"
-  echo "DIFFERENCE=${DIFFERENCE}=${OLD_SIZE}-${SIZE}"
+  echo "FILE: ${FILE} - DIFFERENCE: ${DIFFERENCE}=${OLD_SIZE}-${NEW_SIZE} (${PERCENTAGE}%)"
   echo
 }
 
 function shouldNotifyForSizeChange() {
     OLD_SIZE="${1}"
-    SIZE="${2}"
-    DIFFERENCE=$(calculateDifference "${SIZE}" "${OLD_SIZE}")
+    NEW_SIZE="${2}"
+    DIFFERENCE=$(calculateDifference "${NEW_SIZE}" "${OLD_SIZE}")
 
     # Scenario more than 100K added
     if [ "${DIFFERENCE}" -gt 100000 ]; then
@@ -185,14 +195,14 @@ function main() {
     OLD_TIMESTAMP="${RECORD_ARRAY[2]}"
 
     # find current size
-    SIZE=$(findSize "${FILE}")
+    NEW_SIZE=$(findSize "${FILE}")
 
     # calculate the difference and add to findings if threshold is passed
-    addToFindingsIfNeeded "${FILE}" "${OLD_SIZE}" "${OLD_TIMESTAMP}" "${SIZE}"
+    addToFindingsIfNeeded "${FILE}" "${OLD_SIZE}" "${NEW_SIZE}" "${OLD_TIMESTAMP}"
 
     # store new record in file
     removeRecord "${FILE}"
-    RECORD=$(buildRecord "${FILE}" "${SIZE}" "${TIMESTAMP}")
+    RECORD=$(buildRecord "${FILE}" "${NEW_SIZE}" "${TIMESTAMP}")
     createRecord "${RECORD}"
   done
 

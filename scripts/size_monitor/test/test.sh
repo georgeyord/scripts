@@ -14,18 +14,18 @@ test_overridenEnvVariables() {
 
 test_prepareFolderStructureAndFiles() {
   prepareFoldersAndFiles
-  EXPECTED=$?
+  ACTUAL=$?
 
   assertTrue "LOG_PATH (/tmp/test/) does not exist" "[ -d /tmp/test ]"
   assertTrue "LOG_FILE (/tmp/test/size_monitor.log) does not exist" "[ -f /tmp/test/size_monitor.log ]"
 
-  assertEquals 0 "${EXPECTED}"
+  assertEquals 0 "${ACTUAL}"
 }
 
 test_buildRecord() {
-  EXPECTED=$(buildRecord "/tmp/test/files/foo" 2349230)
+  ACTUAL=$(buildRecord "/tmp/test/files/foo" 2349230)
 
-  assertEquals "/tmp/test/files/foo	2349230	2017-06-07_10-30-21" "${EXPECTED}"
+  assertEquals "/tmp/test/files/foo	2349230	2017-06-07_10-30-21" "${ACTUAL}"
 }
 
 test_removeRecord() {
@@ -33,8 +33,8 @@ test_removeRecord() {
 
   removeRecord "/tmp/test/files/foo"
 
-  EXPECTED=$(wc -l < "${LOG_FILE}")
-  assertEquals 2 "${EXPECTED}"
+  ACTUAL=$(wc -l < "${LOG_FILE}")
+  assertEquals 2 "${ACTUAL}"
 }
 
 test_removeRecord_shouldNotRemoveAPartialFilepath() {
@@ -51,8 +51,8 @@ test_createRecord() {
   createRecord "foo"
   createRecord "bar"
 
-  EXPECTED=$(wc -l < "${LOG_FILE}")
-  assertEquals 2 "${EXPECTED}"
+  ACTUAL=$(wc -l < "${LOG_FILE}")
+  assertEquals 2 "${ACTUAL}"
 
   assertEquals "foo" "$(head -n 1 "${LOG_FILE}")"
   assertEquals "bar" "$(tail -n 1 "${LOG_FILE}")"
@@ -63,9 +63,9 @@ test_findRecord() {
 
   export RECORD_ARRAY;
   findRecord "/tmp/test/files/foo"
-  EXPECTED=$?
+  ACTUAL=$?
 
-  assertEquals 0 "${EXPECTED}"
+  assertEquals 0 "${ACTUAL}"
   assertEquals "/tmp/test/files/foo" "${RECORD_ARRAY[0]}"
   assertEquals "2349230" "${RECORD_ARRAY[1]}"
   assertEquals "${TIMESTAMP}" "${RECORD_ARRAY[2]}"
@@ -74,20 +74,36 @@ test_findRecord() {
 test_findSize() {
   prepareLogfileWithRecords
 
-  EXPECTED=$(findSize "/tmp/test/files")
-  assertEquals 65536 "${EXPECTED}"
+  ACTUAL=$(findSize "/tmp/test/files")
+  assertEquals 65536 "${ACTUAL}"
 
-  EXPECTED=$(findSize "/tmp/test/files/foo")
-  assertEquals 20480 "${EXPECTED}"
+  ACTUAL=$(findSize "/tmp/test/files/foo")
+  assertEquals 20480 "${ACTUAL}"
 
-  EXPECTED=$(findSize "/tmp/test/files/foobar")
-  assertEquals 10240 "${EXPECTED}"
+  ACTUAL=$(findSize "/tmp/test/files/foobar")
+  assertEquals 10240 "${ACTUAL}"
 }
 
 test_calculateDifference() {
-  EXPECTED=$(calculateDifference "6" "4")
+  OLD_SIZE="4"
+  NEW_SIZE="6"
+  ACTUAL=$(calculateDifference "${OLD_SIZE}" "${NEW_SIZE}")
 
-  assertEquals 2 "${EXPECTED}"
+  assertEquals 2 "${ACTUAL}"
+}
+
+test_calculatePercentage() {
+  OLD_SIZE="4"
+  NEW_SIZE="6"
+  ACTUAL=$(calculatePercentage "${OLD_SIZE}" "${NEW_SIZE}")
+
+  assertEquals 67 "${ACTUAL}"
+}
+
+test_calculatePercentage_whereNewSizeIsBiggerThenTheOldSize() {
+  ACTUAL=$(calculatePercentage "4" "6")
+
+  assertEquals 150 "${ACTUAL}"
 }
 
 test_formatSize() {
@@ -117,32 +133,32 @@ test_formatSizeCustom() {
 }
 
 test_addToFindingsIfNeeded() {
-  addToFindingsIfNeeded "/tmp/test/foo" "243" "${TIMESTAMP}" "3345000"
-  assertTrue "Expected findings do not exist" "echo \"${FINDINGS}\" | grep \"size change for /tmp/test/foo\""
+  addToFindingsIfNeeded "/tmp/test/foo" "2430000" "3345000" "${TIMESTAMP}"
+  echo "${FINDINGS}"
+  assertTrue "ACTUAL findings do not exist" "echo \"${FINDINGS}\" | grep \"size change for /tmp/test/foo\""
 }
 
 test_printSummary() {
-  EXPECTED=$(printSummary "/tmp/test/foo" "97.65K" "243" "3345000")
-  assertEquals "${EXPECTED}" "FILE: /tmp/test/foo
-DIFFERENCE=3344757=243-3345000"
+  ACTUAL=$(printSummary "/tmp/test/foo" "893.55K" "73" "2430000" "3345000")
+  assertEquals "FILE: /tmp/test/foo - DIFFERENCE: 97.65K=3345000-2430000 (73%)" "${ACTUAL}"
 }
 
 test_shouldNotifyForSizeChange_shouldReturnTruethy() {
   shouldNotifyForSizeChange "243" "1113452" "1113209"
-  EXPECTED=$?
-  assertEquals "${EXPECTED}" "1"
+  ACTUAL=$?
+  assertEquals "1" "${ACTUAL}"
 }
 
 test_shouldNotifyForSizeChange_shouldReturnFaulty() {
   shouldNotifyForSizeChange "243" "3452" "3209"
-  EXPECTED=$?
-  assertEquals "${EXPECTED}" "0"
+  ACTUAL=$?
+  assertEquals "0" "${ACTUAL}"
 }
 
 test_sendEmail_shouldReturnFaultyIfMailCommandDoesNotExists() {
   RESULT=$(sendEmail)
-  EXPECTED=$?
-  assertEquals "${EXPECTED}" "1"
+  ACTUAL=$?
+  assertEquals "1" "${ACTUAL}"
 }
 
 ######## HELPER FUNCTIONS ########
