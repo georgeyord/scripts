@@ -94,7 +94,10 @@ function process(data) {
   var counter = 0;
   writer.pipe(fs.createWriteStream(outputFilepath))
   data.forEach(function (line, index, arr) {
-    const date = moment(line[0], "MM/DD/YYYY");
+    var date = moment(line[0], "MM/DD/YYYY");
+    if (!date.isValid()) {
+      date = moment(line[0], "YYYY-MM-DD");
+    }
     if (date.isValid()) {
       current = {};
       current.date = date.format('DD/MM/YYYY');
@@ -112,7 +115,7 @@ function process(data) {
       counter++;
       writer.write(current)
     } else {
-      // console.log("Invalid line", line);
+      console.log("Invalid line", line);
     }
   });
   writer.end()
