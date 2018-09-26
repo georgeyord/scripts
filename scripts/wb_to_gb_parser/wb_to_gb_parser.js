@@ -1,12 +1,12 @@
-// ./run.sh -f ~/Documents/AccountStatement-google.csv -o ~/Documents/AccountStatement-google.out.csv
+// ./run.sh -i ~/Documents/AccountStatement-google.csv -o ~/Documents/AccountStatement-google.out.csv
 
 /**
  * Command line arguments handling
  */
 const commandLineArgs = require('command-line-args')
 const optionDefinitions = [{
-    name: 'file',
-    alias: 'f',
+    name: 'input',
+    alias: 'i',
     type: String
   },
   {
@@ -17,17 +17,17 @@ const optionDefinitions = [{
 ]
 const options = commandLineArgs(optionDefinitions)
 
-if (!options.file) {
-  console.log("The source CSV file is required.")
-  console.log("example: ./run.sh -f /tmp/input.csv -o /tmp/output.csv")
-  process.exit(1)
+if (!options.input) {
+  console.log("The source CSV file is required.");
+  console.log("example: ./run.sh -i /tmp/input.csv -o /tmp/output.csv");
+  return
 }
-const inputFilepath = options.file;
+const inputFilepath = options.input;
 
 if (!options.out) {
-  console.log("The target CSV file is required.")
-  console.log("example: ./run.sh -f /tmp/input.csv -o /tmp/output.csv")
-  process.exit(1)
+  console.log("The target CSV file is required.");
+  console.log("example: ./run.sh -i /tmp/input.csv -o /tmp/output.csv");
+  return
 }
 const outputFilepath = options.out;
 
@@ -111,9 +111,12 @@ function process(data) {
       current.txnId = arr[index + 1][1];
       current.amount = Number(line[4].replace(',', '.'));
       current.balance = Number(line[5].replace(',', '.'));
+
       // console.log(current);
-      counter++;
-      writer.write(current)
+      if(current.amount != 0) {
+        counter++;
+        writer.write(current);
+      }
     } else {
       console.log("Invalid line", line);
     }
