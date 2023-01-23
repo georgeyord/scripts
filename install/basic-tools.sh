@@ -6,7 +6,6 @@ apt-get install --assume-yes --force-yes -qq \
 	software-properties-common \
 	htop \
 	vim \
-	python-software-properties \
 	curl \
 	python python-dev \
 	wget \
