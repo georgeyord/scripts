@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n*** Add swap drive"
+echo -e "\n*** Add swap space"
 if [[ $(swapon -s | wc -l) == 1 ]]; then
   SWAP_FILE='/swapfile'
   REGEX_IS_NUMBER='^[0-9]+$'
